@@ -9,9 +9,12 @@ AuthRouter.post('/login', (req, res) => {
         .then( result => {
             req.session.user = {
                 userid: result[0].id,
-                username: req.body.username,
-                password: req.body.password,
+                bggname: result[0].bggname,
+                firstname: result[0].firstname,
+                lastname: result[0].lastname,
+                currentuser: req.body.username,
             }
+            console.log(req.session.user)
             res.status(200).send(result[0])
         })
         .catch(err => {
@@ -29,8 +32,10 @@ AuthRouter.post('/register', (req, res) => {
                 .then( result => {
                     req.session.user = {
                         userid: result[0].id,
-                        username: req.body.username,
-                        password: req.body.password,
+                        bggname: result[0].bggname,
+                        firstname: result[0].firstname,
+                        lastname: result[0].lastname,
+                        currentuser: req.body.username,
                     }
                     res.status(200).send(result)
                 })
