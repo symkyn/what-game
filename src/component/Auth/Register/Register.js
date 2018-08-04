@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as Actions from '../../../redux/reducer';
 
 class Register extends Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
 
         this.state = {
             username: '',
             password: '',
-            firstName: '',
-            lastName: '',
-            bggID: ''
+            firstname: '',
+            lastname: '',
+            bggid: ''
         }
     }
 
@@ -44,35 +46,35 @@ class Register extends Component {
                     </div>
                     <div className="input-row">
                         <div className="input">
-                            <label htmlFor="firstName">First Name</label>
+                            <label htmlFor="firstname">First Name</label>
                             <input
                                 type="text"
-                                name="firstName"
-                                id="firstName"
-                                onChange={e => this.handleChange('firstName', e.target.value)}
-                                value={this.state.firstName} />
+                                name="firstname"
+                                id="firstname"
+                                onChange={e => this.handleChange('firstname', e.target.value)}
+                                value={this.state.firstname} />
                         </div>
                     </div>
                     <div className="input-row">
                         <div className="input">
-                            <label htmlFor="lastName">Last Name</label>
+                            <label htmlFor="lastname">Last Name</label>
                             <input
                                 type="text"
-                                name="lastName"
-                                id="lastName"
-                                onChange={e => this.handleChange('lastName', e.target.value)}
-                                value={this.state.lastName} />
+                                name="lastname"
+                                id="lastname"
+                                onChange={e => this.handleChange('lastname', e.target.value)}
+                                value={this.state.lastname} />
                         </div>
                     </div>
                     <div className="input-row">
                         <div className="input">
-                            <label htmlFor="bggID">BGG User Name</label>
+                            <label htmlFor="bggid">BGG User Name</label>
                             <input
                                 type="text"
-                                name="bggID"
-                                id="bggID"
-                                onChange={e => this.handleChange('bggID', e.target.value)}
-                                value={this.state.bggID} />
+                                name="bggid"
+                                id="bggid"
+                                onChange={e => this.handleChange('bggid', e.target.value)}
+                                value={this.state.bggid} />
                         </div>
                     </div>
                     <button type="submit">Register</button>
@@ -91,8 +93,14 @@ class Register extends Component {
         e.preventDefault();
         
         axios.post('/auth/register', this.state)
-            .then(user => {
-                console.log(user);
+            .then(results => {
+                this.props.updateCurrentUser(
+                        results.data.bggid, 
+                        results.data.username, 
+                        results.data.firstname, 
+                        results.data.lastname
+                    )
+                this.props.history.push('/list');
             })
             .catch(err => {
                 console.warn(err);
@@ -100,4 +108,4 @@ class Register extends Component {
     }
 }
 
-export default Register;
+export default connect(state=>state, Actions)(Register);

@@ -4,24 +4,45 @@ const AuthRouter = express.Router();
 
 AuthRouter.post('/login', (req, res) => {
     const user = req.body.username;
-    req.db.User(user)
-    .then( result => {
-        req.session.user = {
-            userid: result[0].id,
-            username: req.body.username,
-            password: req.body.password,
-        }
-        res.status(200).send(result)
-    })
-    .catch(err => {
-        console.warn(err); 
-        next({message: 'internal server error' })
-    })
+    console.log(user)
+    req.db.user(user)
+        .then( result => {
+            req.session.user = {
+                userid: result[0].id,
+                username: req.body.username,
+                password: req.body.password,
+            }
+            res.status(200).send(result[0])
+        })
+        .catch(err => {
+            console.warn(err); 
+            next({message: 'internal server error' })
+        })
 });
 
 AuthRouter.post('/register', (req, res) => {
     const newUser = req.body;
     console.log(newUser);
+    req.db.User.insert(newUser)
+        .then(newUser => {
+            req.db.User(newUser)
+                .then( result => {
+                    req.session.user = {
+                        userid: result[0].id,
+                        username: req.body.username,
+                        password: req.body.password,
+                    }
+                    res.status(200).send(result)
+                })
+                .catch(err => {
+                    console.warn(err); 
+                    next({message: 'internal server error' })
+                })
+        })
+        .catch(err => {
+            console.warn(err); 
+            next({message: 'internal server error' })
+        })
     res.status(200).send(newUser);
 })
 
