@@ -6,17 +6,13 @@ import Import from './component/Import/Import';
 import List from './component/List/List';
 import Game from './component/Game/Game';
 import Form from './component/Form/Form';
-import Login from './component/Auth/Login/Login';
-import Register from './component/Auth/Register/Register';
 
 export default (
     <Switch>
-        <Route exact path='/' component={Auth} />
+        <Route path='/' component={Auth} />
         <Route path='/import' component={Import} />
         <Route path='/list' component={List} />
         <Route path='/game/:gameid' component={Game} />
         <Route path='/form' component={Form} />
-        <Route path='/login' component={Login} />
-        <Route path='/register' component={Register} />
     </Switch>
 )

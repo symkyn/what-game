@@ -13,9 +13,7 @@ class App extends Component {
     console.log(this.props.location.pathname);
     return (
       <div className="App">
-        {((this.props.location.pathname !== '/') ||
-         (this.props.location.pathname !== '/login') ||
-         (this.props.location.pathname !== '/register')) ? (<Nav />) : null}
+        {(this.props.location.pathname !== '/' & this.props.location.pathname !== '/login' & this.props.location.pathname !== '/register') ? (<Nav />) : null}
         { routes }
       </div>
     );
