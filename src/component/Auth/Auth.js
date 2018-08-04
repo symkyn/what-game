@@ -1,16 +1,10 @@
 import React from 'react';
 import { Button } from '../Button/Button';
-import { Link, Switch, Route  } from 'react-router-dom';
-
-import Login from './Login/Login';
-import Register from './Register/Register';
+import { Link } from 'react-router-dom';
 
 const Auth = () => (
     <div>
-        <Switch>
-            <Route path='/login' component={Login} />
-            <Route path='/register' component={Register} />
-        </Switch>
+        <h2 className='welcome'>Welcome to 'What Game'</h2>
         <Link to='/login'>
             <button>Login</button>
         </Link>
