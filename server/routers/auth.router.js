@@ -25,7 +25,6 @@ AuthRouter.post('/login', (req, res) => {
 
 AuthRouter.post('/register', (req, res) => {
     const newUser = req.body;
-    console.log(newUser);
     req.db.User.insert(newUser)
         .then(newUser => {
             req.db.User(newUser)

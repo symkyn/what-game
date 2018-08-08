@@ -52,7 +52,7 @@ class Login extends Component {
     login(e) {
         e.preventDefault();
         
-        axios.post('http://localhost:4000/auth/login', this.state)
+        axios.post('http://localhost:4000/auth/login', this.state.bggid)
             .then(results => {
                 console.log(results)
                 this.props.updateCurrentUser(
