@@ -47,7 +47,6 @@ GamesRouter.get('/importGame/:bggGameid/:owner/:plays', (req, res) => {
                 minplaytime: Number(result['boardgames']['boardgame'][0]['minplaytime'][0]),
                 maxplaytime: Number(result['boardgames']['boardgame'][0]['maxplaytime'][0]),
                 thumbnail: result['boardgames']['boardgame'][0]['thumbnail'][0],
-                designer: result['boardgames']['boardgame'][0]['boardgamepublisher'][0]['_'],
                 description: result['boardgames']['boardgame'][0]['description'][0],
                 genre: '',
                 plays: Number(plays),
