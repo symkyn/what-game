@@ -48,7 +48,6 @@ GamesRouter.get('/importGame/:bggGameid/:owner/:plays', (req, res) => {
         .then(result => {
             console.log(result.length)
             if (result.length == 0) {
-                console.log('in the if statement');
                 axios.get(`https://www.boardgamegeek.com/xmlapi/boardgame/${gameID}`)
                     .then(response => parseString(response.data, function(err, result) {
                         const newGame = { 

@@ -44,7 +44,6 @@ class List extends Component {
     }
 
     render(){
-        console.log(this.state.games)
         const gamesList = this.state.games.map((game, i) => 
         {
             return(<Game 
