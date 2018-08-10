@@ -76,4 +76,27 @@ GamesRouter.get('/importGame/:bggGameid/:owner/:plays', (req, res) => {
         .catch(err => console.warn(err))
 })
 
+GamesRouter.delete('/delete/:id', (req, res, next) => {
+    const { id } = req.params;
+    console.log(id);
+    req.db.Games.destroy(+id)
+        .then(product => res.status(200).send(product))
+        .catch(err => {
+            console.warn(err);
+            next({message: 'internal server error'})
+        })
+})
+
+GamesRouter.patch('/addPlay/:id', (req, res, next) => {
+    const { id } = req.params;
+    const editplays = req.body;
+    req.db.Games
+        .update(+id, editplays)
+        .then(product => res.status(202).send(product))
+        .catch(err => {
+            console.warn('error with the db', err);
+            next({message: 'internal server error'})
+        })
+})
+
 module.exports = GamesRouter;

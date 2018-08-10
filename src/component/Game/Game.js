@@ -11,11 +11,13 @@ function Game(props) {
                 </span>
                 <span className="button-span">
                     Plays: {props.game.plays} 
-                    <button>Add Play</button>
-                    <button>delete</button>
+                    <button onClick={props.addPlay}>Add Play</button>
+                    <button onClick={props.handleDelete}>delete</button>
                 </span>
             </div>
         )
 }
+
+
 
 export default Game;
