@@ -1,0 +1,26 @@
+.game-description {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 330px;
+    justify-content: center;
+    grid-gap: 20px;
+}
+
+@media (min-width: 740px) {
+    .game-description {
+      grid-template-columns: repeat(2, 330px);
+    }
+}
+
+@media (min-width: 1075px) {
+    .game-description {
+      grid-template-columns: repeat(3, 330px);
+    }
+}
+
+@media (min-width: 1452px) {
+    .game-description {
+      grid-template-columns: repeat(4, 330px);
+    }
+}

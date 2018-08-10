@@ -4,6 +4,14 @@ const parseString = require('xml2js-parser').parseString;
 
 const GamesRouter = express.Router();
 
+GamesRouter.get('/games', (req, res) => {
+    req.db.gameslist()
+        .then(result => {
+            res.status(200).send(result);
+        })
+        .catch(err => console.warn(err))
+}) 
+
 GamesRouter.get('/import/:bgguser', (req, res) => {
     const bgguser = req.params.bgguser;
     console.log(bgguser);
