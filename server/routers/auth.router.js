@@ -4,7 +4,6 @@ const AuthRouter = express.Router();
 
 AuthRouter.post('/login', (req, res) => {
     const user = req.body.username;
-    console.log(user)
     req.db.user(user)
         .then( result => {
             req.session.user = {
