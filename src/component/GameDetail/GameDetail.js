@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import DOMPurify from 'dompurify';
 
 class GameDetail extends Component {
     constructor(props) {
@@ -9,6 +10,7 @@ class GameDetail extends Component {
             game: null,
             loading: true,
             message: '',
+            vote: 0,
         };
     }
 
@@ -53,7 +55,7 @@ class GameDetail extends Component {
                 <div className="game">
                     {game.title}
                     <br />
-                    <div className="description" dangerouslySetInnerHTML={{__html: description}}></div>
+                    <div className="description" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(description)}}></div>
                 </div>
             );
         }
@@ -62,9 +64,34 @@ class GameDetail extends Component {
             <div className="game-details-component">
                 Game Detail
                 {content}
+                <form >
+                    <label onSubmit={(e) => this.submitVote(e)}>My Vote </label>
+                    <input 
+                            onChange={(e) => this.handleChange(e)}
+                            value={this.state.vote}
+                            type="number"
+                            min='1'
+                            max='10'
+                        />
+                    <button type="submit"> VOTE! </button>
+                </form>
             </div>
         );
     }
+
+    handleChange(e) {
+        e.preventDefault();
+
+        this.setState({
+            vote: e.target.value
+        })
+    }
+
+    submitVote(e) {
+        e.preventDefault();
+        console.log(this.state.vote)
+    }
+
 }
 
 export default GameDetail;
