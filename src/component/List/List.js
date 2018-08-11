@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 import  Game  from '../Game/Game';
 import './List.css';
@@ -46,12 +47,15 @@ class List extends Component {
     render(){
         const gamesList = this.state.games.map((game, i) => 
         {
-            return(<Game 
-                        addPlay = {(e) => this.addPlay(e, game.plays, game.id)}
-                        handleDelete={(e) => this.handleDelete(e, game.id)}
-                        game={game}
-                        key={`game-${i}`} 
-                    />)
+            return(
+                <Link className="no-link" to={`game/${game.id}`} key={`game-${i}`} >
+                    <Game 
+                            addPlay = {(e) => this.addPlay(e, game.plays, game.id)}
+                            handleDelete={(e) => this.handleDelete(e, game.id)}
+                            game={game}
+                        />
+                </Link>        
+                        )
         })
         return(
             <div className="game-description">

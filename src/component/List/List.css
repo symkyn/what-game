@@ -7,6 +7,15 @@
     grid-gap: 20px;
 }
 
+a:link, a:visited {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    color: rgb(65, 60, 60);
+}
+
 @media (min-width: 740px) {
     .game-description {
       grid-template-columns: repeat(2, 330px);
