@@ -98,4 +98,16 @@ GamesRouter.patch('/addPlay/:id', (req, res, next) => {
         })
 })
 
+GamesRouter.post('/newGame', (req,res,next) => {
+    let newGame = req.body;
+    req.db.userid(newGame.owner)
+        .then(result => {
+            newGame.owner = result[0].id;
+            req.db.Games.insert(newGame)
+                .then(() => res.status(200).send(newGame))
+                .catch(err => res.status(500).send(err))
+        })
+        .catch(err => console.warn(err))
+})
+
 module.exports = GamesRouter;
