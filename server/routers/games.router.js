@@ -4,6 +4,19 @@ const parseString = require('xml2js-parser').parseString;
 
 const GamesRouter = express.Router();
 
+axios.get(`https://www.boardgamegeek.com/xmlapi/boardgame/68448`)
+                    .then(response => parseString(response.data, function(err, result) {
+                        const nameLength = result['boardgames']['boardgame'][0]['name'].length;
+                        let name = '';
+                        for(let i = 0; i < nameLength; i++){
+                            if(result['boardgames']['boardgame'][0]['name'][i]['$']['primary']) {
+                                name = result['boardgames']['boardgame'][0]['name'][i]['_'];
+                            }
+                        }
+                        console.log(name)
+                    }))
+                    .catch(err => console.warn(err))
+
 GamesRouter.get('/games', (req, res) => {
     req.db.gameslist()
         .then(result => {
@@ -38,10 +51,13 @@ GamesRouter.get('/importGame/:bggGameid/:owner/:plays', (req, res) => {
     const owner = req.params.owner;
     const plays = req.params.plays;
     console.log(owner);
-    let bgguser = NaN;
+    let bgguser = 5;
+    let name = '';
     req.db.userid(owner)
         .then(result => {
-            bgguser = result[0].id;
+            if (result[0].id) {
+                bgguser = result[0].id;
+            }
         })
         .catch(err => console.warn(err))
     req.db.gameexist(gameID)
@@ -50,10 +66,16 @@ GamesRouter.get('/importGame/:bggGameid/:owner/:plays', (req, res) => {
             if (result.length == 0) {
                 axios.get(`https://www.boardgamegeek.com/xmlapi/boardgame/${gameID}`)
                     .then(response => parseString(response.data, function(err, result) {
+                        const nameLength = result['boardgames']['boardgame'][0]['name'].length;
+                        for(let i = 0; i < nameLength; i++){
+                            if(result['boardgames']['boardgame'][0]['name'][i]['$']['primary']) {
+                                name = result['boardgames']['boardgame'][0]['name'][i]['_'];
+                            }
+                        }
                         const newGame = { 
                             bggid: Number(gameID),
                             owner: bgguser,
-                            title: result['boardgames']['boardgame'][0]['name'][0]['_'],
+                            title: name,
                             minplayercount: Number(result['boardgames']['boardgame'][0]['minplayers'][0]),
                             maxplayercount: Number(result['boardgames']['boardgame'][0]['maxplayers'][0]),
                             minplaytime: Number(result['boardgames']['boardgame'][0]['minplaytime'][0]),
