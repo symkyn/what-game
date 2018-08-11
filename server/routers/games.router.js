@@ -4,18 +4,19 @@ const parseString = require('xml2js-parser').parseString;
 
 const GamesRouter = express.Router();
 
-axios.get(`https://www.boardgamegeek.com/xmlapi/boardgame/68448`)
-                    .then(response => parseString(response.data, function(err, result) {
-                        const nameLength = result['boardgames']['boardgame'][0]['name'].length;
-                        let name = '';
-                        for(let i = 0; i < nameLength; i++){
-                            if(result['boardgames']['boardgame'][0]['name'][i]['$']['primary']) {
-                                name = result['boardgames']['boardgame'][0]['name'][i]['_'];
-                            }
-                        }
-                        console.log(name)
-                    }))
-                    .catch(err => console.warn(err))
+//  for testing BGG api
+//  axios.get(`https://www.boardgamegeek.com/xmlapi/boardgame/68448`)
+//                     .then(response => parseString(response.data, function(err, result) {
+//                         const nameLength = result['boardgames']['boardgame'][0]['name'].length;
+//                         let name = '';
+//                         for(let i = 0; i < nameLength; i++){
+//                             if(result['boardgames']['boardgame'][0]['name'][i]['$']['primary']) {
+//                                 name = result['boardgames']['boardgame'][0]['name'][i]['_'];
+//                             }
+//                         }
+//                         console.log(name)
+//                     }))
+//                     .catch(err => console.warn(err))
 
 GamesRouter.get('/games', (req, res) => {
     req.db.gameslist()
