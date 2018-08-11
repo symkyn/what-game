@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+
+import * as Actions from '../../redux/reducer';
 
 class Nav extends Component {
     constructor(props){
         super(props)
+    }
+
+    componentWillMount() {
+        axios.get('http://localhost:4000/auth/me')
+            .then(result => console.log(result)) 
+            .catch(err => console.warn(err))        
     }
 
     render(){
@@ -21,4 +30,4 @@ class Nav extends Component {
     }
 }
 
-export default connect(state=>state)(Nav);
+export default connect(state=>state, Actions)(Nav);

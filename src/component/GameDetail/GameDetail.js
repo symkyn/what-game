@@ -12,6 +12,8 @@ class GameDetail extends Component {
             message: '',
             vote: 0,
         };
+
+        this.submitVote = this.submitVote.bind(this);
     }
 
     
@@ -64,8 +66,8 @@ class GameDetail extends Component {
             <div className="game-details-component">
                 Game Detail
                 {content}
-                <form >
-                    <label onSubmit={(e) => this.submitVote(e)}>My Vote </label>
+                <form onSubmit={(e) => this.submitVote(e)}>
+                    <label>My Vote </label>
                     <input 
                             onChange={(e) => this.handleChange(e)}
                             value={this.state.vote}
@@ -89,7 +91,10 @@ class GameDetail extends Component {
 
     submitVote(e) {
         e.preventDefault();
-        console.log(this.state.vote)
+        console.log('submitting vote');
+        axios.post(`/vote/addVote/${this.props.match.params.gameid}`, {vote: this.state.vote})
+            .then(result => console.log(result))
+            .catch(err => console.warn(err))
     }
 
 }

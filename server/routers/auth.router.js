@@ -8,11 +8,9 @@ AuthRouter.post('/login', (req, res) => {
         .then( result => {
             req.session.user = {
                 userid: result[0].id,
-                bggname: result[0].bggname,
-                firstname: result[0].firstname,
-                lastname: result[0].lastname,
-                currentuser: req.body.username,
-            }
+                username: result[0].username,
+                firstname: result[0].firstname
+            }        
             console.log(req.session.user)
             res.status(200).send(result[0])
         })
@@ -30,10 +28,8 @@ AuthRouter.post('/register', (req, res) => {
                 .then( result => {
                     req.session.user = {
                         userid: result[0].id,
-                        bggname: result[0].bggname,
-                        firstname: result[0].firstname,
-                        lastname: result[0].lastname,
-                        currentuser: req.body.username,
+                        username: result[0].username,
+                        firstname: result[0].firstname
                     }
                     res.status(200).send(result)
                 })
@@ -47,6 +43,12 @@ AuthRouter.post('/register', (req, res) => {
             next({message: 'internal server error' })
         })
     res.status(200).send(newUser);
+})
+
+AuthRouter.get('/me', (req, res, next) => {
+    const sessionUser = req.session.user;
+    console.log(sessionUser)
+    res.status(200).send(sessionUser)
 })
 
 module.exports = AuthRouter;
