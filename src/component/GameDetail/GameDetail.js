@@ -57,7 +57,10 @@ class GameDetail extends Component {
                 <div className="game">
                     {game.title}
                     <br />
-                    <div className="description" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(description)}}></div>
+                    <div 
+                            className="description" 
+                            dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(description)}}>
+                    </div>
                 </div>
             );
         }

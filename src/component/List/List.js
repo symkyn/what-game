@@ -58,7 +58,7 @@ class List extends Component {
                         )
         })
         return(
-            <div className="game-description">
+            <div className="game-list-item">
                 {gamesList}
             </div>
         )
