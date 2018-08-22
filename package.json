@@ -5,6 +5,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
+    "connect-pg-simple": "^5.0.0",
+    "connect-redis": "^3.3.3",
     "cors": "^2.8.4",
     "dompurify": "^1.0.7",
     "dotenv": "^6.0.0",
@@ -17,6 +19,7 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
+    "redis": "^2.8.0",
     "redux": "^4.0.0",
     "xml2js-parser": "^1.1.1"
   },

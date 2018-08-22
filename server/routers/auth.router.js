@@ -8,9 +8,8 @@ AuthRouter.post('/login', (req, res) => {
         .then( result => {
             req.session.user = {
                 userid: result[0].id,
-                username: result[0].username,
                 firstname: result[0].firstname
-            }        
+            }
             console.log(req.session.user)
             res.status(200).send(result[0])
         })
@@ -28,7 +27,6 @@ AuthRouter.post('/register', (req, res) => {
                 .then( result => {
                     req.session.user = {
                         userid: result[0].id,
-                        username: result[0].username,
                         firstname: result[0].firstname
                     }
                     res.status(200).send(result)
@@ -46,9 +44,18 @@ AuthRouter.post('/register', (req, res) => {
 })
 
 AuthRouter.get('/me', (req, res, next) => {
-    const sessionUser = req.session.user;
-    console.log(sessionUser)
-    res.status(200).send(sessionUser)
+    console.log('hello')
+    console.log(req.session)
+    // req.db.session(req.sessionID)
+    //     .then(result => console.log(result))
+    //     .catch(err => console.warn(err))
+    // if(req.session.user){
+    //     const sessionUser = req.session.user["userid"];
+    //     console.log(sessionUser)
+    //     res.status(200).send(sessionUser)
+    // } else {
+    //     res.status(400).send('not logged in')
+    // }
 })
 
 module.exports = AuthRouter;

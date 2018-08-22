@@ -137,7 +137,6 @@ GamesRouter.get('/gameDetails/:gameID', (req,res,next) => {
     const { gameID } = req.params;
     req.db.gamedetail(gameID)
         .then( result => {
-            console.log(result[0])
             res.status(200).send(result[0])
         }) 
         .catch(err => res.status(500).send(err))

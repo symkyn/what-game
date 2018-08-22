@@ -1,0 +1,1 @@
+select * from "session" where sid = $1;
