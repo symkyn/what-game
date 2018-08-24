@@ -15,6 +15,7 @@ class GameDetail extends Component {
         };
 
         this.submitVote = this.submitVote.bind(this);
+        this.componentWillMount = this.componentWillMount.bind(this);
     }
 
     
@@ -42,7 +43,7 @@ class GameDetail extends Component {
     }
 
     render() {
-        console.log(this.state.game);
+        // console.log(this.state.game);
         // console.log(this.props.match.params.gameid)
 
         const { game, loading, message } = this.state;
@@ -111,7 +112,10 @@ class GameDetail extends Component {
     submitVote(e) {
         e.preventDefault();
         axios.post(`/vote/addVote/${this.props.match.params.gameid}`, {vote: this.state.newVote, username: this.props.bggUserName})
-            .then(result => console.log(result))
+            .then(result => {
+                console.log(result)
+                this.componentWillMount();
+            })
             .catch(err => console.warn(err))
     }
 
