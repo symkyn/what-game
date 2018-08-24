@@ -61,10 +61,11 @@ class GameDetail extends Component {
                 <div className="game">
                     {game.title}
                     <br />
-                    {game.vote ? (
+                    {game.averagevote ? (
                         <div className="average-vote">
                             <h5>Average vote</h5>
-                            {game.vote}
+                            {game.averagevote}
+                            <br />
                         </div>
                     ) : (
                         <div className="average-vote">
@@ -103,13 +104,12 @@ class GameDetail extends Component {
         e.preventDefault();
 
         this.setState({
-            vote: e.target.value
+            newVote: e.target.value
         })
     }
 
     submitVote(e) {
         e.preventDefault();
-        console.log('submitting vote');
         axios.post(`/vote/addVote/${this.props.match.params.gameid}`, {vote: this.state.newVote, username: this.props.bggUserName})
             .then(result => console.log(result))
             .catch(err => console.warn(err))

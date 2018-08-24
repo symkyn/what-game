@@ -18,7 +18,11 @@ VoteRouter.post('/addVote/:gameID', (req, res, next) => {
                         req.db.Votes.insert(newVote)
                             .then(() => {
                                 req.db.findaveragevote(gameID)
-                                    .then(result => console.log(result[0].Average_Vote))
+                                    .then(result => {
+                                        req.db.updatevoteongame(result[0].Average_Vote, gameID)
+                                            .then(() => res.status(200).send('vote updated successfully'))
+                                            .catch(err => console.warn(err))
+                                    })
                                     .catch(err => console.warn(err))
                                 res.status(200).send('vote added successfully')
                             })
@@ -27,9 +31,12 @@ VoteRouter.post('/addVote/:gameID', (req, res, next) => {
                         req.db.updatevote(vote, gameID, userid)
                             .then(() => {
                                 req.db.findaveragevote(gameID)
-                                    .then(result => console.log(result[0].Average_Vote))
+                                    .then(result => {
+                                        req.db.updatevoteongame(result[0].Average_Vote, gameID)
+                                            .then(() => res.status(200).send('vote updated successfully'))
+                                            .catch(err => console.warn(err))
+                                    })
                                     .catch(err => console.warn(err))
-                                res.status(200).send('vote updated successfully')
                             })
                             .catch(err => console.warn(err))
                     }

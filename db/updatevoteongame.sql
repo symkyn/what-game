@@ -1,2 +1,2 @@
-update "Games" set vote = $1
-    where gamesid = $2;
+update "Games" set averagevote = $1
+    where id = $2;
