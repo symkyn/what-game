@@ -58,8 +58,22 @@ class List extends Component {
                         )
         })
         return(
-            <div className="game-list-item">
-                {gamesList}
+            <div className="game-list">
+                <div className="search">
+                    <form>
+                        <input />
+                        <button>Search</button>
+                    </form>
+                </div>
+                <div className="filter-form">
+                    <form>
+                        <input />
+                        <button>Filter</button>
+                    </form>
+                </div>
+                <div className="game-list-item">
+                    {gamesList}
+                </div>
             </div>
         )
     }

@@ -62,7 +62,7 @@ class GameDetail extends Component {
                 <div className="game">
                     {game.title}
                     <br />
-                    {game.averagevote ? (
+                    {game.averagevote !== 'NaN' ? (
                         <div className="average-vote">
                             <h5>Average vote</h5>
                             {game.averagevote}
