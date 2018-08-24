@@ -10,11 +10,11 @@ class Nav extends Component {
         super(props)
     }
 
-    componentWillMount() {
-        axios.get('http://localhost:4000/auth/me')
-            .then(result => console.log(result)) 
-            .catch(err => console.warn(err))        
-    }
+    // componentWillMount() {
+    //     axios.get('http://localhost:4000/auth/me')
+    //         .then(result => console.log(result)) 
+    //         .catch(err => console.warn(err))        
+    // }
 
     render(){
         return(

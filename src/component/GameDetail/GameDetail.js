@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import DOMPurify from 'dompurify';
+import { connect } from 'react-redux';
 
 class GameDetail extends Component {
     constructor(props) {
@@ -10,7 +11,7 @@ class GameDetail extends Component {
             game: null,
             loading: true,
             message: '',
-            vote: 0,
+            newVote: 0,
         };
 
         this.submitVote = this.submitVote.bind(this);
@@ -41,6 +42,9 @@ class GameDetail extends Component {
     }
 
     render() {
+        console.log(this.state.game);
+        // console.log(this.props.match.params.gameid)
+
         const { game, loading, message } = this.state;
 
         let content;
@@ -49,7 +53,7 @@ class GameDetail extends Component {
             content = <p className="loading">Loading</p>;
         }
         else if (message) {
-            content = <p className="error-message">{message}</p>;
+            content = <p className="error-message">{message}: Please Reload Page</p>;
         }
         else {
             let description = game.description;
@@ -57,6 +61,17 @@ class GameDetail extends Component {
                 <div className="game">
                     {game.title}
                     <br />
+                    {game.vote ? (
+                        <div className="average-vote">
+                            <h5>Average vote</h5>
+                            {game.vote}
+                        </div>
+                    ) : (
+                        <div className="average-vote">
+                            <h5>No Votes Yet</h5>
+                        </div>
+                    )
+                    }
                     <div 
                             className="description" 
                             dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(description)}}>
@@ -73,7 +88,7 @@ class GameDetail extends Component {
                     <label>My Vote </label>
                     <input 
                             onChange={(e) => this.handleChange(e)}
-                            value={this.state.vote}
+                            value={this.state.newVote}
                             type="number"
                             min='1'
                             max='10'
@@ -95,11 +110,11 @@ class GameDetail extends Component {
     submitVote(e) {
         e.preventDefault();
         console.log('submitting vote');
-        axios.post(`/vote/addVote/${this.props.match.params.gameid}`, {vote: this.state.vote})
+        axios.post(`/vote/addVote/${this.props.match.params.gameid}`, {vote: this.state.newVote, username: this.props.bggUserName})
             .then(result => console.log(result))
             .catch(err => console.warn(err))
     }
 
 }
 
-export default GameDetail;
+export default connect(state=>state)(GameDetail);

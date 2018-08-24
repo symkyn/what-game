@@ -44,8 +44,8 @@ AuthRouter.post('/register', (req, res) => {
 })
 
 AuthRouter.get('/me', (req, res, next) => {
-    console.log('hello')
-    console.log(req.session)
+    // console.log('hello')
+    // console.log(req.session)
     // req.db.session(req.sessionID)
     //     .then(result => console.log(result))
     //     .catch(err => console.warn(err))

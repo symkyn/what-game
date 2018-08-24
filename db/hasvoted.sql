@@ -1,0 +1,1 @@
+select * from "Votes" where gamesid = $1 and userid = $2;

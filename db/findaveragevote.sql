@@ -1,0 +1,1 @@
+select round(avg(vote), 2) as "Average_Vote" from "Votes" where gamesid = $1;
