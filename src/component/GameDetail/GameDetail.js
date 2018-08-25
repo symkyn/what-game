@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import DOMPurify from 'dompurify';
 import { connect } from 'react-redux';
+import { HorizontalBar } from 'react-chartjs-2';
 
 class GameDetail extends Component {
     constructor(props) {
@@ -12,6 +13,9 @@ class GameDetail extends Component {
             loading: true,
             message: '',
             newVote: 0,
+            voteArray: [],
+            chartData: {},
+            showGraph: false,
         };
 
         this.submitVote = this.submitVote.bind(this);
@@ -21,7 +25,28 @@ class GameDetail extends Component {
     
 
     componentWillMount() {
-        console.log(this.props.match.params.gameid)
+        axios.get(`http://localhost:4000/vote/getVotes/${this.props.match.params.gameid}`)
+        .then(response => {
+            this.setState({
+                voteArray: response.data,
+            });
+            const lables = this.state.voteArray.map(user => (user.firstname));
+            const votes = this.state.voteArray.map(user => (user.vote));
+            this.setState({
+                chartData: {
+                    labels: lables,
+                    datasets: [
+                        {
+                            label: 'Vote',
+                            data: votes
+                        }
+                    ]
+                }
+            })
+        })
+        .catch(err => {
+            console.warn(err.response.data.message);
+        })
         axios
             .get(`http://localhost:4000/games/gameDetails/${this.props.match.params.gameid}`)
             .then(response => {
@@ -43,7 +68,7 @@ class GameDetail extends Component {
     }
 
     render() {
-        // console.log(this.state.game);
+        // console.log(this.state.voteArray);
         // console.log(this.props.match.params.gameid)
 
         const { game, loading, message } = this.state;
@@ -60,7 +85,9 @@ class GameDetail extends Component {
             let description = game.description;
             content = (
                 <div className="game">
-                    {game.title}
+                    <h2>{game.title}</h2>
+                    <br />
+                    <img src={game.thumbnail} alt='no image available' />
                     <br />
                     {game.averagevote !== 'NaN' ? (
                         <div className="average-vote">
@@ -84,8 +111,30 @@ class GameDetail extends Component {
 
         return (
             <div className="game-details-component">
-                Game Detail
                 {content}
+                {this.state.showGraph
+                    ? (<div className="graph">
+                    <HorizontalBar 
+                          data={this.state.chartData}
+                          options={{
+                              maintainAspectRatio: false,
+                              scales: {
+                                  xAxes: [{
+                                      display: true,
+                                      ticks: {
+                                          beginAtZero: true,
+                                          steps: 10,
+                                          min: 0,
+                                          max: 10
+                                      }
+                                  }]
+                              }
+                          }}   
+                    />
+                    <button onClick={() => this.hideDetail()}>Hide Detail</button>
+                    </div>)
+                    : (<button onClick={() => this.showDetail()}>Show Detail</button>)
+                }
                 <form onSubmit={(e) => this.submitVote(e)}>
                     <label>My Vote </label>
                     <input 
@@ -117,6 +166,18 @@ class GameDetail extends Component {
                 this.componentWillMount();
             })
             .catch(err => console.warn(err))
+    }
+
+    showDetail() {
+        this.setState({
+            showGraph: true
+        })
+    }
+
+    hideDetail() {
+        this.setState({
+            showGraph: false
+        })
     }
 
 }

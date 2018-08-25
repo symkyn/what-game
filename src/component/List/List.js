@@ -6,26 +6,62 @@ import  Game  from '../Game/Game';
 import './List.css';
 
 class List extends Component {
+    inputs = {
+        search: {
+            label: 'Search',
+            property: 'searchTerm',
+            type: 'text'
+        },
+        filter: {
+            label: 'Filter',
+            property: 'filter',
+            type: 'text'
+        }
+    }
+
     constructor(){
         super()
 
         this.state = {
-            games: []
+            games: [],
+            searchTerm: '',
+            filter: '',
         }
 
         this.handleDelete = this.handleDelete.bind(this);
         this.componentWillMount = this.componentWillMount.bind(this);
         this.addPlay = this.addPlay.bind(this);
+        this.submitSearch = this.submitSearch.bind(this);
     }
 
     componentWillMount() {
-        axios.get('http://localhost:4000/games/games')
+        axios.get('http://localhost:4000/games/games?search=')
           .then(results => {
             this.setState({
               games: results.data
             })
           })
           .catch(err => console.warn(err))
+    }
+
+    submitSearch(e) {
+        e.preventDefault();
+
+        axios.get(`http://localhost:4000/games/games?search=${this.state.searchTerm}`)
+          .then(results => {
+            this.setState({
+              games: results.data,
+              searchTerm: ''
+            })
+          })
+          .catch(err => console.warn(err))
+    }
+
+    handleChange(e, name) {
+        e.preventDefault();
+        const value = e.target.value;
+
+        this.setState({[name]: value});
     }
 
     handleDelete(e, id){
@@ -60,14 +96,24 @@ class List extends Component {
         return(
             <div className="game-list">
                 <div className="search">
-                    <form>
-                        <input />
-                        <button>Search</button>
+                    <form onSubmit={(e) => this.submitSearch(e)}>
+                        <label>{this.inputs.search.label}</label>
+                        <input 
+                                onChange={(e) => this.handleChange(e, this.inputs.search.property)}
+                                value={this.state.searchTerm}
+                                type={this.inputs.search.type}
+                        />
+                        <button type="submit">Search</button>
                     </form>
                 </div>
                 <div className="filter-form">
                     <form>
-                        <input />
+                    <label>{this.inputs.filter.label}</label>
+                        <input 
+                                onChange={(e) => this.handleChange(e, this.inputs.filter.property)}
+                                value={this.state.filter}
+                                type={this.inputs.filter.type}
+                        />
                         <button>Filter</button>
                     </form>
                 </div>

@@ -1,0 +1,1 @@
+select * from "Games" where title like $1

@@ -1,0 +1,1 @@
+select * from "Votes" inner join "User" on ("Votes".userID = "User".id) where gamesid = $1;

@@ -19,6 +19,13 @@ const GamesRouter = express.Router();
 //                     .catch(err => console.warn(err))
 
 GamesRouter.get('/games', (req, res) => {
+    req.query.search ?
+    req.db.findgamebytitle(req.query.search)
+    .then(result => {
+        res.status(200).send(result);
+    })
+    .catch(err => console.warn(err))
+    :
     req.db.gameslist()
         .then(result => {
             res.status(200).send(result);

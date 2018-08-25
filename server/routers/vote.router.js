@@ -7,7 +7,6 @@ VoteRouter.post('/addVote/:gameID', (req, res, next) => {
     const vote = req.body.vote;
     const bggid = req.body.username;
     let userid = null;
-    let hasVoted = false;
     req.db.userinfo(bggid)
         .then(result => {
             userid = result[0].id
@@ -43,6 +42,13 @@ VoteRouter.post('/addVote/:gameID', (req, res, next) => {
                 }) 
                 .catch(err => console.warn(err))
                 })
+        .catch(err => console.warn(err))
+})
+
+VoteRouter.get('/getVotes/:gameID', (req, res, next) => {
+    const { gameID } = req.params;
+    req.db.votesbyuser(gameID)
+        .then(result => res.status(200).send(result))
         .catch(err => console.warn(err))
 })
 
