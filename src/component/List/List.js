@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 import  Game  from '../Game/Game';
+import Button from '../Button/Button';
 import './List.css';
 
 class List extends Component {
@@ -73,7 +74,9 @@ class List extends Component {
     }
 
     addPlay(e, plays, id) {
-        e.preventDefault;
+        e.stopPropagation;
+        e.nativeEvent.stopImmediatePropagation();
+
         const newPlays = {plays: plays + 1};
         axios.patch(`http://localhost:4000/games/addPlay/${id}`, newPlays)
             .then(this.componentWillMount)
@@ -103,7 +106,7 @@ class List extends Component {
                                 value={this.state.searchTerm}
                                 type={this.inputs.search.type}
                         />
-                        <button type="submit">Search</button>
+                        <Button className='search-button' type="submit">Search</Button>
                     </form>
                 </div>
                 <div className="filter-form">
@@ -114,7 +117,7 @@ class List extends Component {
                                 value={this.state.filter}
                                 type={this.inputs.filter.type}
                         />
-                        <button>Filter</button>
+                        <Button className='search-button'>Filter</Button>
                     </form>
                 </div>
                 <div className="game-list-item">

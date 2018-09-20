@@ -4,6 +4,8 @@ import DOMPurify from 'dompurify';
 import { connect } from 'react-redux';
 import { HorizontalBar } from 'react-chartjs-2';
 
+import Button from '../Button/Button';
+
 class GameDetail extends Component {
     constructor(props) {
         super(props)
@@ -131,9 +133,9 @@ class GameDetail extends Component {
                               }
                           }}   
                     />
-                    <button onClick={() => this.hideDetail()}>Hide Detail</button>
+                    <Button onClick={() => this.hideDetail()}>Hide Detail</Button>
                     </div>)
-                    : (<button onClick={() => this.showDetail()}>Show Detail</button>)
+                    : (<Button onClick={() => this.showDetail()}>Show Detail</Button>)
                 }
                 <form onSubmit={(e) => this.submitVote(e)}>
                     <label>My Vote </label>
@@ -144,7 +146,7 @@ class GameDetail extends Component {
                             min='1'
                             max='10'
                         />
-                    <button type="submit"> VOTE! </button>
+                    <Button type="submit"> VOTE! </Button>
                 </form>
             </div>
         );

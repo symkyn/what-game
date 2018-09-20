@@ -1,3 +1,30 @@
-button {
+.my-button {
     margin: 4px;
+    background-color: rgb(87, 83, 79);
+    border-radius: 6px;
+    width: 110px;
+    height: 30px;
+    color: rgba(255, 255, 255, 0.959);
+    font-family: Palatino, Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.auth-button {
+    background-color: rgb(100, 110, 108);
+    width: 80px;
+    height: 30px;
+}
+
+.nav-button {
+    width: 170px;
+    height: 30px;
+}
+
+.game-button {
+    width: 80px;
+    height: 30px;
+}
+
+.search-button {
+    width: 80px;
+    height: 24px;
 }

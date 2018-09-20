@@ -1,0 +1,8 @@
+.navigation-bar {
+    background-color: rgb(12, 16, 37);
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.959);
+}

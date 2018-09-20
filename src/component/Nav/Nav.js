@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+import './Nav.css';
 import * as Actions from '../../redux/reducer';
+import Button from '../Button/Button';
 
 class Nav extends Component {
     constructor(props){
@@ -20,10 +22,10 @@ class Nav extends Component {
         return(
             <div className='navigation-bar'> {this.props.firstName ? `Welcome ${this.props.firstName}` : null} 
                 <span className='nav=span'>
-                    <Link to='/import'> <button>Import BGG Game List</button> </Link>
-                    <Link to='/form'> <button>Add New Game</button> </Link>
-                    <Link to='/list'> <button>Games!!!</button> </Link>
-                    <Link to='/'> <button>logout</button> </Link>
+                    <Link to='/import'> <Button className='nav-button'>Import BGG Game List</Button> </Link>
+                    <Link to='/form'> <Button className='nav-button'>Add New Game</Button> </Link>
+                    <Link to='/list'> <Button className='nav-button'>Games!!!</Button> </Link>
+                    <Link to='/'> <Button className='nav-button'>logout</Button> </Link>
                 </span>
             </div>
         )

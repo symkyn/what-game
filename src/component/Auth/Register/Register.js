@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+
 import * as Actions from '../../../redux/reducer';
+import Button from '../../Button/Button'
 
 class Register extends Component {
     constructor(props){
@@ -77,7 +79,7 @@ class Register extends Component {
                                 value={this.state.bggid} />
                         </div>
                     </div>
-                    <button type="submit">Register</button>
+                    <Button type="submit" className='auth-button'>Register</Button>
                 </form>
                 
                 <Link to="/login">Already have an account? Log in!</Link>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Button from '../../Button/Button';
 
 import * as Actions from '../../../redux/reducer';
 
@@ -42,7 +43,7 @@ class Login extends Component {
                                 onChange={(e) =>this.handleChange(e)}
                                 value={this.state.password} 
                             />
-                    <button type='submit'>login</button>
+                    <Button type='submit' className='auth-button'>login</Button>
                 </form>
                 <Link to="/register">Don't have an account? Register!</Link>
             </div>

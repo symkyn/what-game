@@ -1,6 +1,8 @@
 import React from 'react';
 import './Game.css';
 
+import Button from '../Button/Button';
+
 function Game(props) {
     return(
             <div className="game-summary">
@@ -11,8 +13,8 @@ function Game(props) {
                 </span>
                 <span className="button-span">
                     Plays: {props.game.plays} 
-                    <button onClick={props.addPlay}>Add Play</button>
-                    <button onClick={props.handleDelete}>delete</button>
+                    <Button className= 'game-button' onClick={props.addPlay}>Add Play</Button>
+                    <Button className= 'game-button' onClick={props.handleDelete}>Delete</Button>
                 </span>
             </div>
         )
