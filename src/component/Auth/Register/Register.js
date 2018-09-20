@@ -21,68 +21,70 @@ class Register extends Component {
 
     render(){
         return(
-            <div className='register-page'>
-                <h2>Register</h2>
-                <form className="register-box" onSubmit={e => this.handleSubmit(e)}>
-                    <div className="input-row">
-                        <div className="input">
-                            <label htmlFor="username">Username</label>
-                            <input
-                                type="text"
-                                name="username"
-                                id="username"
-                                onChange={e => this.handleChange('username', e.target.value)}
-                                value={this.state.username} />
+            <div className='parent-auth-box'>
+                <div className='auth-box'>
+                    <h2>Register</h2>
+                    <form className="register-box" onSubmit={e => this.handleSubmit(e)}>
+                        <div className="input-row">
+                            <div className="input">
+                                <label htmlFor="username">Username</label>
+                                <input
+                                    type="text"
+                                    name="username"
+                                    id="username"
+                                    onChange={e => this.handleChange('username', e.target.value)}
+                                    value={this.state.username} />
+                            </div>
                         </div>
-                    </div>
-                    <div className="input-row">
-                        <div className="input">
-                            <label htmlFor="password">Password</label>
-                            <input
-                                type="password"
-                                name=""
-                                id="password"
-                                onChange={e => this.handleChange('password', e.target.value)}
-                                value={this.state.password} />
+                        <div className="input-row">
+                            <div className="input">
+                                <label htmlFor="password">Password</label>
+                                <input
+                                    type="password"
+                                    name=""
+                                    id="password"
+                                    onChange={e => this.handleChange('password', e.target.value)}
+                                    value={this.state.password} />
+                            </div>
                         </div>
-                    </div>
-                    <div className="input-row">
-                        <div className="input">
-                            <label htmlFor="firstname">First Name</label>
-                            <input
-                                type="text"
-                                name="firstname"
-                                id="firstname"
-                                onChange={e => this.handleChange('firstname', e.target.value)}
-                                value={this.state.firstname} />
+                        <div className="input-row">
+                            <div className="input">
+                                <label htmlFor="firstname">First Name</label>
+                                <input
+                                    type="text"
+                                    name="firstname"
+                                    id="firstname"
+                                    onChange={e => this.handleChange('firstname', e.target.value)}
+                                    value={this.state.firstname} />
+                            </div>
                         </div>
-                    </div>
-                    <div className="input-row">
-                        <div className="input">
-                            <label htmlFor="lastname">Last Name</label>
-                            <input
-                                type="text"
-                                name="lastname"
-                                id="lastname"
-                                onChange={e => this.handleChange('lastname', e.target.value)}
-                                value={this.state.lastname} />
+                        <div className="input-row">
+                            <div className="input">
+                                <label htmlFor="lastname">Last Name</label>
+                                <input
+                                    type="text"
+                                    name="lastname"
+                                    id="lastname"
+                                    onChange={e => this.handleChange('lastname', e.target.value)}
+                                    value={this.state.lastname} />
+                            </div>
                         </div>
-                    </div>
-                    <div className="input-row">
-                        <div className="input">
-                            <label htmlFor="bggid">BGG User Name</label>
-                            <input
-                                type="text"
-                                name="bggid"
-                                id="bggid"
-                                onChange={e => this.handleChange('bggid', e.target.value)}
-                                value={this.state.bggid} />
+                        <div className="input-row">
+                            <div className="input">
+                                <label htmlFor="bggid">BGG User Name</label>
+                                <input
+                                    type="text"
+                                    name="bggid"
+                                    id="bggid"
+                                    onChange={e => this.handleChange('bggid', e.target.value)}
+                                    value={this.state.bggid} />
+                            </div>
                         </div>
-                    </div>
-                    <Button type="submit" className='auth-button'>Register</Button>
-                </form>
-                
-                <Link to="/login">Already have an account? Log in!</Link>
+                        <Button type="submit" className='auth-button'>Register</Button>
+                    </form>
+                    
+                    <Link to="/login">Already have an account? Log in!</Link>
+                </div>
             </div>
         )
     }

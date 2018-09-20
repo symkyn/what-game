@@ -26,26 +26,28 @@ class Login extends Component {
 
     render(){
         return(
-            <div className='login-page'>
-                <h2>login</h2>
-                <form className='login-box' onSubmit={(e)=>this.login(e)}>
-                    <label htmlFor="username">Username: </label>
-                        <input 
-                                name='username' 
-                                type='text' 
-                                onChange={(e) => this.handleChange(e)}
-                                value={this.state.username} 
-                            />
-                    <label htmlFor="password">Password: </label>
-                        <input 
-                                name='password' 
-                                type='password' 
-                                onChange={(e) =>this.handleChange(e)}
-                                value={this.state.password} 
-                            />
-                    <Button type='submit' className='auth-button'>login</Button>
-                </form>
-                <Link to="/register">Don't have an account? Register!</Link>
+            <div className='parent-auth-box'>
+                <div className='auth-box'>
+                    <h2>login</h2>
+                    <form className='login-box' onSubmit={(e)=>this.login(e)}>
+                        <label htmlFor="username">Username: </label>
+                            <input 
+                                    name='username' 
+                                    type='text' 
+                                    onChange={(e) => this.handleChange(e)}
+                                    value={this.state.username} 
+                                />
+                        <label htmlFor="password">Password: </label>
+                            <input 
+                                    name='password' 
+                                    type='password' 
+                                    onChange={(e) =>this.handleChange(e)}
+                                    value={this.state.password} 
+                                />
+                        <Button type='submit' className='auth-button'>login</Button>
+                    </form>
+                    <Link to="/register">Don't have an account? Register!</Link>
+                </div>
             </div>
         )
     }

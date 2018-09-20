@@ -1,0 +1,32 @@
+.parent-auth-box {
+    display: flex;
+    height: 100%;
+}
+
+.auth-box {
+    align-self: center;
+    border: 2px;
+    border-color: rgba(77, 77, 77, 0.411);
+    border-radius: 6px;
+    background-color: rgb(200, 200, 201);
+    width: 500px;
+    height: 250px;
+    margin: auto;
+}
+
+.button-div {
+    display: flex;
+    height: 130px;
+    justify-content: center;
+    align-items: center;
+}
+
+.child-button-div {
+    justify-content: center;
+    align-items: center;
+    border:3px;
+}
+
+.auth-logo {
+    margin-right: 40px;
+}
