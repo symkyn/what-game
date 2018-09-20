@@ -2,18 +2,39 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
+import Button from '../Button/Button';
+import Modal from 'react-modal';
+
 class Import extends Component {
     constructor(){
         super()
 
         this.state={
             bggid: '',
-            games: []
+            games: [],
+            modalIsOpen: false,
+            importedGame: ''
         }
         this.handleChange=this.handleChange.bind(this);
         this.import=this.import.bind(this);
         this.gameImport=this.gameImport.bind(this);
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
     }
+
+    openModal(result) {
+        this.setState({
+            modalIsOpen: true,
+            importedGame: result.data.title
+        });
+      }
+    
+    closeModal() {
+        this.setState({
+            modalIsOpen: false,
+            importedGame: ''
+        });
+      }
 
     componentWillMount() {
         if(this.props.bggUserName)
@@ -27,7 +48,7 @@ class Import extends Component {
 
         console.log(id)
         axios.get(`http://localhost:4000/games/importGame/${id}/${this.state.bggid}/${plays}`)
-            .then(result => console.log(result))
+            .then(result => this.openModal(result))
             .catch(err => console.warn(err))
     }
 
@@ -41,11 +62,11 @@ class Import extends Component {
         const games = this.state.games
             .map((games, i) => (
                 <li key={`list-item-${i}`}>
-                    <button 
+                    <Button 
                         className={`import`} 
                         onClick={(e) => this.gameImport(e, games.id, games.plays)}>
-                            import
-                    </button>
+                            Import
+                    </Button>
                     {games.name} || {games.id} || Plays: {games.plays}
                 </li>
             ))
@@ -60,8 +81,16 @@ class Import extends Component {
                                 onChange={(e) =>this.handleChange(e)}
                                 value={this.state.bggid} 
                             />
-                    <button type='submit'>Import</button>
+                    <Button type='submit'>Grab List</Button>
                 </form>
+                <Modal
+                    isOpen={this.state.modalIsOpen}
+                    onRequestClose={this.closeModal}
+                    contentLabel="Example Modal"
+                    >
+                    <h3>{this.state.importedGame} is imported</h3>
+                    <button onClick={this.closeModal}>close</button>
+                </Modal>
                 {games}
             </div>
         )

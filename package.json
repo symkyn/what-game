@@ -18,10 +18,12 @@
     "react": "^16.4.2",
     "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.4.2",
+    "react-modal": "^3.5.1",
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
+    "reactjs-popup": "^1.2.0",
     "redis": "^2.8.0",
     "redux": "^4.0.0",
     "xml2js-parser": "^1.1.1"
