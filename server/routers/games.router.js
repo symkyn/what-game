@@ -45,7 +45,8 @@ GamesRouter.get('/import/:bgguser', (req, res) => {
                 gamesArray.push({
                     name: result['items']['item'][i]['name'][0]['_'], 
                     id: result['items']['item'][i]['$']['objectid'],
-                    plays: result['items']['item'][i]['numplays']
+                    plays: result['items']['item'][i]['numplays'],
+                    thumbnail: result['items']['item'][i]['thumbnail']
                 })
             }
             res.status(200).send(gamesArray);

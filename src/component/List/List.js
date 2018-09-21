@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+
 import  Game  from '../Game/Game';
 import Button from '../Button/Button';
 import './List.css';
@@ -66,7 +67,8 @@ class List extends Component {
     }
 
     handleDelete(e, id){
-        e.preventDefault;
+        e.preventDefault();
+        e.stopPropagation();
 
         axios.delete(`http://localhost:4000/games/delete/${id}`)
             .then(this.componentWillMount)
@@ -74,8 +76,8 @@ class List extends Component {
     }
 
     addPlay(e, plays, id) {
-        e.stopPropagation;
-        e.nativeEvent.stopImmediatePropagation();
+        e.preventDefault();
+        e.stopPropagation();
 
         const newPlays = {plays: plays + 1};
         axios.patch(`http://localhost:4000/games/addPlay/${id}`, newPlays)
