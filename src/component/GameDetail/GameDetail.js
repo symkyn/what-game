@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { HorizontalBar } from 'react-chartjs-2';
 
 import Button from '../Button/Button';
+import './GameDetail.css';
 
 class GameDetail extends Component {
     constructor(props) {
@@ -40,7 +41,14 @@ class GameDetail extends Component {
                     datasets: [
                         {
                             label: 'Vote',
-                            data: votes
+                            data: votes,
+                            backgroundColor: 'rgba(255, 99, 125, 0.2)',
+                            borderColor: 'rgba(255, 0, 125, 1)',
+                            color: 'black',
+                            borderWidth: 1,
+                            hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+                            hoverBorderColor: 'rgba(255,99,132,1)',
+
                         }
                     ]
                 }
@@ -87,7 +95,7 @@ class GameDetail extends Component {
             let description = game.description;
             content = (
                 <div className="game">
-                    <h2>{game.title}</h2>
+                    <h2 className='game-title'>{game.title}</h2>
                     <br />
                     <img src={game.thumbnail} alt='no image available' />
                     <br />
@@ -120,14 +128,25 @@ class GameDetail extends Component {
                           data={this.state.chartData}
                           options={{
                               maintainAspectRatio: false,
+                              legend: {
+                                  labels: {
+                                    fontColor: 'black'
+                                  }
+                              },
                               scales: {
                                   xAxes: [{
                                       display: true,
                                       ticks: {
+                                          fontColor: 'black',
                                           beginAtZero: true,
                                           steps: 10,
                                           min: 0,
                                           max: 10
+                                      }
+                                  }],
+                                  yAxes: [{
+                                      ticks: {
+                                          fontColor: 'black'
                                       }
                                   }]
                               }
