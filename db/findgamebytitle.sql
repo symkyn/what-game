@@ -1,1 +1,2 @@
-select * from "Games" where title like $1
+-- set searchTerm = '%'|| $1 || '%';
+select * from "Games" where title like '%' || $1 || '%';
