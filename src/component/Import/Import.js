@@ -7,6 +7,17 @@ import Masonry from 'react-masonry-component';
 import Button from '../Button/Button';
 import ImportList from '../ImportList/ImportList';
 
+const customStyles = {
+    content : {
+      top                   : '50%',
+      left                  : '50%',
+      right                 : 'auto',
+      bottom                : 'auto',
+      marginRight           : '-50%',
+      transform             : 'translate(-50%, -50%)'
+    }
+  };
+
 class Import extends Component {
     constructor(){
         super()
@@ -97,9 +108,10 @@ class Import extends Component {
                 <Modal
                     isOpen={this.state.modalIsOpen}
                     onRequestClose={this.closeModal}
-                    contentLabel="Example Modal">
+                    contentLabel="Import Modal"
+                    style={customStyles}>
                     <h3>{this.state.importedGame} is imported</h3>
-                    <button onClick={this.closeModal}>close</button>
+                    <Button onClick={this.closeModal}>close</Button>
                 </Modal>
                 <Masonry className='import-games-list'>
                     {games}
