@@ -6,17 +6,13 @@ import { Link } from 'react-router-dom';
 import  Game  from '../Game/Game';
 import Button from '../Button/Button';
 import './List.css';
+import FilterForm from '../FilterForm/FilterForm';
 
 class List extends Component {
     inputs = {
         search: {
             label: 'Search',
             property: 'searchTerm',
-            type: 'text'
-        },
-        filter: {
-            label: 'Filter',
-            property: 'filter',
             type: 'text'
         }
     }
@@ -111,17 +107,7 @@ class List extends Component {
                         <Button className='search-button' type="submit">Search</Button>
                     </form>
                 </div>
-                <div className="filter-form">
-                    <form>
-                    <label>{this.inputs.filter.label}</label>
-                        <input 
-                                onChange={(e) => this.handleChange(e, this.inputs.filter.property)}
-                                value={this.state.filter}
-                                type={this.inputs.filter.type}
-                        />
-                        <Button className='search-button'>Filter</Button>
-                    </form>
-                </div>
+                <FilterForm />
                 <div className="game-list-item">
                     {gamesList}
                 </div>
