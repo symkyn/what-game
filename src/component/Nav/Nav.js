@@ -23,7 +23,6 @@ class Nav extends Component {
             <div className='navigation-bar'> {this.props.firstName ? `Welcome ${this.props.firstName}` : null} 
                 <span className='nav=span'>
                     <Link to='/import'> <Button className='nav-button'>Import BGG Game List</Button> </Link>
-                    <Link to='/form'> <Button className='nav-button'>Add New Game</Button> </Link>
                     <Link to='/list'> <Button className='nav-button'>Games!!!</Button> </Link>
                     <Link to='/'> <Button className='nav-button'>logout</Button> </Link>
                 </span>
