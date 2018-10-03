@@ -44,7 +44,6 @@ AuthRouter.post('/register', (req, res) => {
 });
 
 AuthRouter.get('/users', (req, res, next) => {
-    console.log('getusers route')
     req.db.bggUserNames()
         .then(result => {
             res.status(200).send(result)

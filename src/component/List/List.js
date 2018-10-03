@@ -58,7 +58,14 @@ class List extends Component {
     submitFilter(e, num, time, users) {
         e.preventDefault();
 
-        console.log(num, time, users);
+        axios.get(`http://localhost:4000/games/games?num=${num}&time=${time}&users=${users}`)
+          .then(results => {
+            this.setState({
+              games: results.data,
+              searchTerm: ''
+            })
+          })
+          .catch(err => console.warn(err))
     }
 
     handleChange(e, name) {

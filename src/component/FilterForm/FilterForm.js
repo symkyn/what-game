@@ -79,7 +79,7 @@ class FilterForm extends Component {
                         /> {" minutes"}
                         <br />
                     <label>{"BGG Users:"}</label>
-                    <div classname="multi-select-filter">
+                    <div className="multi-select-filter">
                         <Select
                             closeMenuOnSelect={false}
                             components={makeAnimated()}

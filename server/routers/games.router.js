@@ -19,12 +19,26 @@ const GamesRouter = express.Router();
 //                     .catch(err => console.warn(err))
 
 GamesRouter.get('/games', (req, res) => {
+    let games = [];
     req.query.search ?
     req.db.findgamebytitle(req.query.search)
     .then(result => {
         res.status(200).send(result);
     })
     .catch(err => console.warn(err))
+    :
+    req.query.users ?
+    
+    req.query.users.split(',').map(e => {
+        req.db.filterSearch(req.query.num, req.query.time, e)
+        .then(result => {
+            games = games.concat(result)
+            if (e == req.query.users.split(',')[req.query.users.split(',').length - 1]){
+                res.status(200).send(games);
+            }
+        })
+        .catch(err => console.warn(err))
+    })
     :
     req.db.gameslist()
         .then(result => {
