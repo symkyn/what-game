@@ -19,15 +19,20 @@ class FilterForm extends Component {
             type: 'number'
         }
     }
-
-    state={
-        numPlayers: 0,
-        playTime: 30,
-        options: [
-            {value: 'symkyn', label: 'Symkyn'},
-            {value: 'triplzero', label: 'triplzero'}
-        ]
+    constructor(props){
+        super(props)
+        
+        this.state={
+            numPlayers: 0,
+            playTime: 30,
+            users: [],
+            options: [
+                {value: 'symkyn', label: 'Symkyn'},
+                {value: 'triplzero', label: 'triplzero'}
+            ]
+        }
     }
+
 
     handleChange(e, name) {
         e.preventDefault();
@@ -36,10 +41,20 @@ class FilterForm extends Component {
         this.setState({[name]: value});
     }
 
+    changeUsers(e) {
+        console.log(e)
+        this.setState({
+            users:[].slice.call(e).map(o => {
+                return o.value;
+            })
+        });
+    }
+    
+
     render() {
         return(
             <div className="filter-form">
-                    <form>
+                    <form onSubmit={(e) => this.props.submitFilter(e, this.state.numPlayers, this.state.playTime, this.state.users)}>
                     <label>{this.inputs.players.label}</label>
                         <input 
                                 onChange={(e) => this.handleChange(e, this.inputs.players.property)}
@@ -61,6 +76,7 @@ class FilterForm extends Component {
                             components={makeAnimated()}
                             isMulti
                             options={this.state.options}
+                            onChange={(e) => this.changeUsers(e)}
                         />
                     </div>    
                     <Button className='search-button'>Filter</Button>

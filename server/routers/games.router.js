@@ -119,7 +119,10 @@ GamesRouter.delete('/delete/:id', (req, res, next) => {
 
 GamesRouter.patch('/addPlay/:id', (req, res, next) => {
     const { id } = req.params;
-    const editplays = req.body;
+    
+    
+    
+    ;
     req.db.Games
         .update(+id, editplays)
         .then(product => res.status(202).send(product))

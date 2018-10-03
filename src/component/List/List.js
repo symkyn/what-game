@@ -55,6 +55,12 @@ class List extends Component {
           .catch(err => console.warn(err))
     }
 
+    submitFilter(e, num, time, users) {
+        e.preventDefault();
+
+        console.log(num, time, users);
+    }
+
     handleChange(e, name) {
         e.preventDefault();
         const value = e.target.value;
@@ -107,7 +113,7 @@ class List extends Component {
                         <Button className='search-button' type="submit">Search</Button>
                     </form>
                 </div>
-                <FilterForm />
+                    <FilterForm submitFilter={(e, num, time, users) => this.submitFilter(e, num, time, users)} />
                 <div className="game-list-item">
                     {gamesList}
                 </div>
