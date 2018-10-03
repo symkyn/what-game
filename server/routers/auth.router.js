@@ -41,7 +41,19 @@ AuthRouter.post('/register', (req, res) => {
             next({message: 'internal server error' })
         })
     res.status(200).send(newUser);
-})
+});
+
+AuthRouter.get('/users', (req, res, next) => {
+    console.log('getusers route')
+    req.db.bggUserNames()
+        .then(result => {
+            res.status(200).send(result)
+        })
+        .catch(err => {
+            console.warn(err);
+            next({message: 'could not get users list'})
+        })
+});
 
 AuthRouter.get('/me', (req, res, next) => {
     // console.log('hello')

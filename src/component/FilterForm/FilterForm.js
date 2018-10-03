@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
 import makeAnimated from 'react-select/lib/animated';
+import axios from 'axios';
 
 import Button from '../Button/Button';
 import './FilterForm.css'
@@ -26,11 +27,19 @@ class FilterForm extends Component {
             numPlayers: 0,
             playTime: 30,
             users: [],
-            options: [
-                {value: 'symkyn', label: 'Symkyn'},
-                {value: 'triplzero', label: 'triplzero'}
-            ]
+            options: []
         }
+    }
+
+    componentDidMount() {
+        axios.get('http://localhost:4000/auth/users')
+            .then(results => {
+                let userOptions = results.data.map(u => {return {value: u.bggid, label: u.bggid}});
+                this.setState({
+                    options: userOptions
+                })
+            })
+            .catch(err => console.warn(err))
     }
 
 
