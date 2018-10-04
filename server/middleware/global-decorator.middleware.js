@@ -1,11 +1,8 @@
 const express = require('express');
-// var redis   = require("redis");
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-// const RedisStore = require('connect-redis')(session);
-// const client  = redis.createClient();
-const pgSession = require('connect-pg-simple')(session);
+var PostgreSqlStore = require('connect-pg-simple')(session);
 
 const addDb = require('./add-db.middleware');
 
@@ -18,12 +15,9 @@ function globalDecorator(app) {
         resave: false,
         saveUninitialized: true,
         secret: process.env.SESSION_SECRET,
-        store: new pgSession({
+        store: new PostgreSqlStore({
             conString: process.env.DB_CONNECTION_STRING
         }),
-        cookie: {
-            maxAge: 7 * 24 * 60 * 60 * 1000
-        },
     }));
 
     app.use(express.static(__dirname + '/../build'));
