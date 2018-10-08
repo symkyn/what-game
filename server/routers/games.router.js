@@ -133,12 +133,9 @@ GamesRouter.delete('/delete/:id', (req, res, next) => {
 
 GamesRouter.patch('/addPlay/:id', (req, res, next) => {
     const { id } = req.params;
-    
-    
-    
-    ;
+    const { plays } = req.body;
     req.db.Games
-        .update(+id, editplays)
+        .update(+id, { plays })
         .then(product => res.status(202).send(product))
         .catch(err => {
             console.warn('error with the db', err);
