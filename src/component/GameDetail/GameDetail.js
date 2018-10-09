@@ -78,13 +78,9 @@ class GameDetail extends Component {
     }
 
     render() {
-        // console.log(this.state.voteArray);
-        // console.log(this.props.match.params.gameid)
-
         const { game, loading, message } = this.state;
-
         let content;
-        
+       
         if (loading) {
             content = <p className="loading">Loading</p>;
         }
@@ -97,7 +93,7 @@ class GameDetail extends Component {
                 <div className="game">
                     <h2 className='game-title'>{game.title}</h2>
                     <br />
-                    <img src={game.thumbnail} alt='no image available' />
+                    <img src={game.thumbnail} alt='not available' />
                     <br />
                     {game.averagevote !== 'NaN' ? (
                         <div className="average-vote">
@@ -183,7 +179,6 @@ class GameDetail extends Component {
         e.preventDefault();
         axios.post(`/vote/addVote/${this.props.match.params.gameid}`, {vote: this.state.newVote, username: this.props.bggUserName})
             .then(result => {
-                console.log(result)
                 this.componentWillMount();
             })
             .catch(err => console.warn(err))

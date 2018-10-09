@@ -11,7 +11,8 @@ const Auth = () => (
             <div className="button-div">
                 <img 
                         src={require('../../board-game-icon.png')} 
-                        className='auth-logo' />
+                        className='auth-logo'
+                        alt='board game' />
                 <div className='child-button-div'>
                     <Link to='/login'>
                         <Button className='auth-button'>Login</Button>

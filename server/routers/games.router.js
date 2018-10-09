@@ -49,7 +49,6 @@ GamesRouter.get('/games', (req, res) => {
 
 GamesRouter.get('/import/:bgguser', (req, res) => {
     const bgguser = req.params.bgguser;
-    console.log(bgguser);
     axios.get(`https://www.boardgamegeek.com/xmlapi2/collection?username=${bgguser}&own=1`)
         .then(response => parseString(response.data, function(err, result) {
             let length = result['items']['$']['totalitems']
@@ -85,7 +84,6 @@ GamesRouter.get('/importGame/:bggGameid/:owner/:plays', (req, res) => {
         .catch(err => console.warn(err))
     req.db.gameexist(gameID)
         .then(result => {
-            console.log(result.length)
             if (result.length == 0) {
                 axios.get(`https://www.boardgamegeek.com/xmlapi/boardgame/${gameID}`)
                     .then(response => parseString(response.data, function(err, result) {
@@ -110,8 +108,8 @@ GamesRouter.get('/importGame/:bggGameid/:owner/:plays', (req, res) => {
                             averagevote: NaN    
                         }
                         req.db.Games.insert(newGame)
-                            .then(result => console.log(result))
-                            .catch(err => console.warn.err)
+                            .then(result => result)
+                            .catch(err => console.warn(err))
                         res.status(200).send(newGame);
                     }))
                     .catch(err => console.warn(err))
@@ -122,7 +120,6 @@ GamesRouter.get('/importGame/:bggGameid/:owner/:plays', (req, res) => {
 
 GamesRouter.delete('/delete/:id', (req, res, next) => {
     const { id } = req.params;
-    console.log(id);
     req.db.Games.destroy(+id)
         .then(product => res.status(200).send(product))
         .catch(err => {

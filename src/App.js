@@ -8,6 +8,10 @@ import routes from './route';
 class App extends Component {
   constructor(props){
     super(props);
+
+    this.state={
+      pathname: this.props.location.pathname
+    }
   }
   render() {
     return (

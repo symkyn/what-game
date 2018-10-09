@@ -97,7 +97,7 @@ class List extends Component {
     noPlays(e) {
         e.preventDefault();
 
-        const filteredArray = this.state.games.filter(game => game.plays == 0)
+        const filteredArray = this.state.games.filter(game => game.plays === 0)
         this.setState({
             games: filteredArray,
         })
@@ -106,11 +106,8 @@ class List extends Component {
     hasVotes(e) {
         e.preventDefault();
 
-        console.log(this.state.games)
         let filteredArray = this.state.games.filter(game => game.averagevote !== "NaN")
-        console.log(filteredArray);
         let filteredArray2 = filteredArray.sort((a, b) => {return b.averagevote - a.averagevote})
-        console.log(filteredArray2);
         this.setState({
             games: filteredArray2,
         })
