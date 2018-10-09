@@ -36,7 +36,7 @@ class List extends Component {
         axios.get('http://localhost:4000/games/games?search=')
           .then(results => {
             this.setState({
-              games: results.data
+              games: results.data,
             })
           })
           .catch(err => console.warn(err))
@@ -94,6 +94,28 @@ class List extends Component {
             .catch(err => console.warn(err))
     }
 
+    noPlays(e) {
+        e.preventDefault();
+
+        const filteredArray = this.state.games.filter(game => game.plays == 0)
+        this.setState({
+            games: filteredArray,
+        })
+    }
+
+    hasVotes(e) {
+        e.preventDefault();
+
+        console.log(this.state.games)
+        let filteredArray = this.state.games.filter(game => game.averagevote !== "NaN")
+        console.log(filteredArray);
+        let filteredArray2 = filteredArray.sort((a, b) => {return b.averagevote - a.averagevote})
+        console.log(filteredArray2);
+        this.setState({
+            games: filteredArray2,
+        })
+    }
+
     render(){
         const gamesList = this.state.games.map((game, i) => 
         {
@@ -121,8 +143,15 @@ class List extends Component {
                     </form>
                 </div>
                     <FilterForm submitFilter={(e, num, time, users) => this.submitFilter(e, num, time, users)} />
+                <div className="sort-game-list-buttons">
+                    <Button className='sort-button' onClick={(e) => {this.noPlays(e)}}>Shelf of Shame</Button>
+                    <Button className='sort-button' onClick={(e) => {this.hasVotes(e)}}>Highest Average Vote</Button>
+                    <Button className='sort-button' onClick={() => {this.componentWillMount()}}>Clear Filters</Button>
+                </div>
                 <div className="game-list-item">
-                    {gamesList}
+                    
+                        {gamesList}
+                    
                 </div>
             </div>
         )
