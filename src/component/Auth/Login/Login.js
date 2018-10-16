@@ -54,6 +54,8 @@ class Login extends Component {
 
     login(e) {
         e.preventDefault();
+
+        console.log(this.state);
         
         axios.post('http://localhost:4000/auth/login', this.state)
             .then(results => {

@@ -8,9 +8,9 @@ AuthRouter.post('/login', (req, res, next) => {
     req.db.user(username)
         .then( result => {
             let user = result[0];
-            req.session.user = user;
             if (bcrypt.compareSync(password, user.password)) {
                 delete user.password;
+                req.session.user = user;
                 res.status(200).send(user);
               } else {
                 res.status(401).send({ error: 'Invalid Username or password' });
@@ -24,12 +24,12 @@ AuthRouter.post('/login', (req, res, next) => {
 
 AuthRouter.post('/register', (req, res, next) => {
     const user = req.body;
-    req.session.user = user
     var pwd = bcrypt.hashSync(user.password, 5);
     user.password = pwd;
     req.db.User.insert(user)
     .then(user => {
                     delete user.password;
+                    req.session.user = user
                     res.status(200).send(user)
                 })
         .catch(err => {
@@ -50,7 +50,7 @@ AuthRouter.get('/users', (req, res, next) => {
 });
 
 AuthRouter.get('/me', (req, res) => {
-    if (req.session.user && req.cookies.user_sid) {
+    if (req.session.user) {
         res.status(200).send(req.session.user)
       } else {
         res.status(403).send({message: 'user is not logged in'})
@@ -59,9 +59,14 @@ AuthRouter.get('/me', (req, res) => {
 })
 
 AuthRouter.get('/logout',(req, res) => {
-    if (req.session.user && req.cookies.user_sid) {
+    console.log('logout')
+    if (req.session.user || req.cookies.user_sid) {
       res.clearCookie('user_sid');
+      req.session.destroy();
       res.status(200).send('logged out');
+    } else {
+        req.session.destroy();
+        res.status(200).send('logged out');
     }
   })
 

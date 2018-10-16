@@ -25,7 +25,7 @@ class Nav extends Component {
     logout(e) {
         e.preventdefault;
 
-        axios.get('auth/logout')
+        axios.get('http://localhost:4000/auth/logout')
             .then(result => console.log(result)) 
             .catch(err => console.warn(err))
     }
