@@ -11,18 +11,18 @@ const app = express();
 
 globalDecorator(app);
 
-app.get("/", function(req, res){
-    if ( !req.session.views){
-      req.session.views = 1;
-    }else{
-      req.session.views += 1;
-    }
+// app.get("/", function(req, res){
+//     if ( !req.session.views){
+//       req.session.views = 1;
+//     }else{
+//       req.session.views += 1;
+//     }
   
-    res.json({
-      "status" : "ok",
-      "frequency" : req.session.views
-    });
-  });
+//     res.json({
+//       "status" : "ok",
+//       "frequency" : req.session.views
+//     });
+//   });
 
 routerHub(app);
 

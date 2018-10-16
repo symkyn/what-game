@@ -111,7 +111,7 @@ class Import extends Component {
                     contentLabel="Import Modal"
                     style={customStyles}>
                     <h3>{this.state.importedGame} is imported</h3>
-                    <Button onClick={this.closeModal}>close</Button>
+                    <Button onClick={this.closeModal}>OK!</Button>
                 </Modal>
                 <Masonry className='import-games-list'>
                     {games}

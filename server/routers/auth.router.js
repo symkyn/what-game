@@ -8,11 +8,8 @@ AuthRouter.post('/login', (req, res, next) => {
     req.db.user(username)
         .then( result => {
             let user = result[0];
+            req.session.user = user;
             if (bcrypt.compareSync(password, user.password)) {
-                req.session.user = {
-                    userid: user.id,
-                    firstname: user.firstname
-                }
                 delete user.password;
                 res.status(200).send(user);
               } else {
@@ -27,14 +24,11 @@ AuthRouter.post('/login', (req, res, next) => {
 
 AuthRouter.post('/register', (req, res, next) => {
     const user = req.body;
+    req.session.user = user
     var pwd = bcrypt.hashSync(user.password, 5);
     user.password = pwd;
     req.db.User.insert(user)
-        .then(user => {
-                    req.session.user = {
-                        userid: user.id,
-                        firstname: user.firstname
-                    }
+    .then(user => {
                     delete user.password;
                     res.status(200).send(user)
                 })
@@ -55,18 +49,20 @@ AuthRouter.get('/users', (req, res, next) => {
         })
 });
 
-AuthRouter.get('/me', (req, res, next) => {
-    console.log('session info: ', req.session)
-    req.db.session(req.session.id)
-        .then(result => console.log('result from session db: ',result))
-        .catch(err => console.warn(err))
-    if(req.session.user){
-        const sessionUser = req.session.user["userid"];
-        console.log(sessionUser)
-        res.status(200).send(sessionUser)
-    } else {
-        res.status(400).send('not logged in')
-    }
+AuthRouter.get('/me', (req, res) => {
+    if (req.session.user && req.cookies.user_sid) {
+        res.status(200).send(req.session.user)
+      } else {
+        res.status(403).send({message: 'user is not logged in'})
+      }    
+    
 })
+
+AuthRouter.get('/logout',(req, res) => {
+    if (req.session.user && req.cookies.user_sid) {
+      res.clearCookie('user_sid');
+      res.status(200).send('logged out');
+    }
+  })
 
 module.exports = AuthRouter;
