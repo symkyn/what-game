@@ -8,9 +8,9 @@ AuthRouter.post('/login', (req, res, next) => {
     req.db.user(username)
         .then( result => {
             let user = result[0];
+            req.session.user = user;
             if (bcrypt.compareSync(password, user.password)) {
                 delete user.password;
-                req.session.user = user;
                 res.status(200).send(user);
               } else {
                 res.status(401).send({ error: 'Invalid Username or password' });
@@ -50,15 +50,16 @@ AuthRouter.get('/users', (req, res, next) => {
 });
 
 AuthRouter.get('/me', (req, res) => {
+    console.log(req.session.user);
     if (req.session.user) {
         res.status(200).send(req.session.user)
       } else {
-        res.status(403).send({message: 'user is not logged in'})
+        res.status(401).send({message: 'user is not logged in'})
       }    
     
 })
 
-AuthRouter.get('/logout',(req, res) => {
+AuthRouter.post('/logout',(req, res) => {
     console.log('logout')
     if (req.session.user || req.cookies.user_sid) {
       res.clearCookie('user_sid');

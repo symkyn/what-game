@@ -17,16 +17,29 @@ class Nav extends Component {
     }
 
     componentWillMount() {
-        axios.get('http://localhost:4000/auth/me')
-            .then(result => console.log(result)) 
+        axios.get('/auth/me')
+            .then(results => {
+                console.log(results.data);
+                this.props.updateCurrentUser(
+                    results.data.bggid, 
+                    results.data.username, 
+                    results.data.firstname, 
+                    results.data.lastname
+                ) 
+                    this.setState({
+                        firstName: results.data.firstname,
+                    })
+            })
             .catch(err => console.warn(err))        
     }
 
     logout(e) {
-        e.preventdefault;
+        // e.preventDefault();
 
-        axios.get('http://localhost:4000/auth/logout')
-            .then(result => console.log(result)) 
+        axios.post('/auth/logout')
+            .then(result => {
+                console.log(result)
+            }) 
             .catch(err => console.warn(err))
     }
 

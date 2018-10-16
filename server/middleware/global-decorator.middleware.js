@@ -24,14 +24,13 @@ function globalDecorator(app) {
         store: new PostgreSqlStore({
             conString: process.env.DB_CONNECTION_STRING
         }),
-        key: 'user_sid',
+        key: 'sid',
         secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: false,
         rolling: true,
         cookie: {
-            maxAge: 30 * 24 * 60 * 1000,
-            //domain: 'localhost', //based on the domain of the website.
+            maxAge: 30 * 24 * 60 * 60 * 1000,
             httpOnly: true,
             sameSite: true,
         },

@@ -57,7 +57,7 @@ class Login extends Component {
 
         console.log(this.state);
         
-        axios.post('http://localhost:4000/auth/login', this.state)
+        axios.post('/auth/login', this.state)
             .then(results => {
                 this.props.updateCurrentUser(
                     results.data.bggid, 
