@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-
 import  Game  from '../Game/Game';
 import Button from '../Button/Button';
 import './List.css';
