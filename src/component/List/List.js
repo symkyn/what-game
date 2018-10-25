@@ -32,7 +32,7 @@ class List extends Component {
     }
 
     componentWillMount() {
-        axios.get('http://localhost:4000/games/games?search=')
+        axios.get('/games/games?search=')
           .then(results => {
             this.setState({
               games: results.data,
@@ -44,7 +44,7 @@ class List extends Component {
     submitSearch(e) {
         e.preventDefault();
 
-        axios.get(`http://localhost:4000/games/games?search=${this.state.searchTerm}`)
+        axios.get(`/games/games?search=${this.state.searchTerm}`)
           .then(results => {
             this.setState({
               games: results.data,
@@ -57,7 +57,7 @@ class List extends Component {
     submitFilter(e, num, time, users) {
         e.preventDefault();
 
-        axios.get(`http://localhost:4000/games/games?num=${num}&time=${time}&users=${users}`)
+        axios.get(`/games/games?num=${num}&time=${time}&users=${users}`)
           .then(results => {
             this.setState({
               games: results.data,
@@ -78,7 +78,7 @@ class List extends Component {
         e.preventDefault();
         e.stopPropagation();
 
-        axios.delete(`http://localhost:4000/games/delete/${id}`)
+        axios.delete(`/games/delete/${id}`)
             .then(this.componentWillMount)
             .catch(err => console.warn(err))
     }
@@ -88,7 +88,7 @@ class List extends Component {
         e.stopPropagation();
 
         const newPlays = {plays: plays + 1};
-        axios.patch(`http://localhost:4000/games/addPlay/${id}`, newPlays)
+        axios.patch(`/games/addPlay/${id}`, newPlays)
             .then(this.componentWillMount)
             .catch(err => console.warn(err))
     }

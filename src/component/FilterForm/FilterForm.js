@@ -32,7 +32,7 @@ class FilterForm extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:4000/auth/users')
+        axios.get('/auth/users')
             .then(results => {
                 let userOptions = results.data.map(u => {return {value: u.bggid, label: u.bggid}});
                 this.setState({

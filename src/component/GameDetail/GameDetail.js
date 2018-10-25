@@ -28,7 +28,7 @@ class GameDetail extends Component {
     
 
     componentWillMount() {
-        axios.get(`http://localhost:4000/vote/getVotes/${this.props.match.params.gameid}`)
+        axios.get(`/vote/getVotes/${this.props.match.params.gameid}`)
         .then(response => {
             this.setState({
                 voteArray: response.data,
@@ -58,7 +58,7 @@ class GameDetail extends Component {
             console.warn(err.response.data.message);
         })
         axios
-            .get(`http://localhost:4000/games/gameDetails/${this.props.match.params.gameid}`)
+            .get(`/games/gameDetails/${this.props.match.params.gameid}`)
             .then(response => {
                 this.setState({
                     game: response.data,
