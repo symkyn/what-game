@@ -9,7 +9,7 @@ const PostgreSqlStore = require('connect-pg-simple')(session);
 const addDb = require('./add-db.middleware');
 
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: '*',
     optionsSuccessStatus: 200
   }
 
