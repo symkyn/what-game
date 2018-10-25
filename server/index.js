@@ -13,6 +13,11 @@ globalDecorator(app);
 
 routerHub(app);
 
+const path = require('path')
+app.get('*', (req, res)=>{
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+})
+
 app.use((err, req, res, next) => {
     res.status(500).send(err);
 })
