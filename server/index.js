@@ -13,7 +13,7 @@ globalDecorator(app);
 
 routerHub(app);
 
-
+app.use( express.static( `${__dirname}/../build` ) );
 app.use((err, req, res, next) => {
     res.status(500).send(err);
 })
