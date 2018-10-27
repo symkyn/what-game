@@ -130,7 +130,6 @@ class Import extends Component {
                 this.setState({
                     games: result.data
                 })
-                console.log(result.data)
             })
             .catch(err => console.warn(err))
     }
