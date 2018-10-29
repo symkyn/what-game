@@ -10,24 +10,24 @@ class CreateGroup extends Component {
             property: 'name',
             type: 'text'
         },
-        locationCity: {
+        locationcity: {
             label: 'City',
-            property: 'locationCity',
+            property: 'locationcity',
             type: 'text'
         },
-        locationState: {
+        locationstate: {
             label: 'State',
-            property: 'locationState',
+            property: 'locationstate',
             type: 'text'
         },
-        isPublic: {
+        ispublic: {
             label: 'Public?',
-            property: 'isPublic',
+            property: 'ispublic',
             type: 'checkbox'
         },
-        groupPassword: {
+        grouppassword: {
             label: 'Password',
-            property: 'groupPassword',
+            property: 'grouppassword',
             type: 'text'
         },
     }
@@ -37,10 +37,10 @@ class CreateGroup extends Component {
 
         this.state={
             name: '',
-            locationCity: '',
-            locationState: '',
-            isPublic: true,
-            groupPassword: '',
+            locationcity: '',
+            locationstate: '',
+            ispublic: true,
+            grouppassword: '',
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -58,11 +58,11 @@ class CreateGroup extends Component {
     handleCheckChange(e) {
         const value = e.target.checked;
         if (value === 'checked') {
-            this.setState({isPublic: value})
+            this.setState({ispublic: value})
         } else {
             this.setState({
-                isPublic: value,
-                groupPassword: ''
+                ispublic: value,
+                grouppassword: ''
             })
         }
     }
@@ -87,33 +87,33 @@ class CreateGroup extends Component {
                                 value={this.state.name}
                                 type={this.inputs.name.type} 
                             />
-                        <label>{this.inputs.locationCity.label}</label>
+                        <label>{this.inputs.locationcity.label}</label>
                         <input 
-                                onChange={(e) => this.handleChange(e, this.inputs.locationCity.property)}
-                                value={this.state.locationCity}
-                                type={this.inputs.locationCity.type} 
+                                onChange={(e) => this.handleChange(e, this.inputs.locationcity.property)}
+                                value={this.state.locationcity}
+                                type={this.inputs.locationcity.type} 
                             />
-                        <label>{this.inputs.locationState.label}</label>
+                        <label>{this.inputs.locationstate.label}</label>
                         <input 
-                                onChange={(e) => this.handleChange(e, this.inputs.locationState.property)}
-                                value={this.state.locationState}
-                                type={this.inputs.locationState.type} 
+                                onChange={(e) => this.handleChange(e, this.inputs.locationstate.property)}
+                                value={this.state.locationstate}
+                                type={this.inputs.locationstate.type} 
                             />
                     </div>
                     <div className='private-group'>
-                        <label>{this.inputs.isPublic.label}</label>
+                        <label>{this.inputs.ispublic.label}</label>
                             <input 
                                     onChange={(e) => this.handleCheckChange(e)}
-                                    value={this.state.isPublic}
-                                    checked={this.state.isPublic === true}
-                                    type={this.inputs.isPublic.type} 
+                                    value={this.state.ispublic}
+                                    checked={this.state.ispublic === true}
+                                    type={this.inputs.ispublic.type} 
                                 />
-                    {!this.state.isPublic ? 
-                        (<span><label>{this.inputs.groupPassword.label}</label>
+                    {!this.state.ispublic ? 
+                        (<span><label>{this.inputs.grouppassword.label}</label>
                         <input 
-                                onChange={(e) => this.handleChange(e, this.inputs.groupPassword.property)}
-                                value={this.state.groupPassword}
-                                type={this.inputs.groupPassword.type} 
+                                onChange={(e) => this.handleChange(e, this.inputs.grouppassword.property)}
+                                value={this.state.grouppassword}
+                                type={this.inputs.grouppassword.type} 
                             /> </span>)
                         : null}    
                     </div>
