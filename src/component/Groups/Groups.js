@@ -16,6 +16,7 @@ class Groups extends Component {
         }
 
         this.deleteGroup = this.deleteGroup.bind(this);
+        this.handleChange = this.handleChange.bind(this);
 
     }
 
