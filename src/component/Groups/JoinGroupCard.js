@@ -32,15 +32,16 @@ class JoinGroupCard extends Component {
         return(
             <div className='join-group-item'>
                 <h3 className='title'>{this.props.group.name}</h3>
-                <span className='info-span'> {this.props.group.locationcity}, {this.props.group.locationstate}</span>
+                <span className='info-span'> {this.props.group.locationcity}, 
+                {this.props.group.locationstate}</span>
                 {!this.state.ispublic ? (
-                    <span className='button-span'><form>
+                    <span className='button-span'><form onSubmit={(e) => this.props.joinGroup(e, this.props.group.id, this.state.password, false)}>
                         <label>Password: </label>
                         <input value={this.state.password} type='password' onChange={(e) => this.handleChange(e)} />
                         <br />
                         <Button type='submit'>Join</Button>
                     </form></span>
-                ) : <span className='button-span'><Button>Join</Button></span>
+                ) : <span className='button-span'><Button onClick={(e) => this.props.joinGroup(e, this.props.group.id, this.state.password, true)}>Join</Button></span>
                 }
             </div>
         )

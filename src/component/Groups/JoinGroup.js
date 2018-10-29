@@ -10,6 +10,8 @@ class JoinGroup extends Component {
         this.state={
             groups: []
         }
+
+        this.joinGroup = this.joinGroup.bind(this);
     }
 
     componentWillMount() {
@@ -22,12 +24,21 @@ class JoinGroup extends Component {
             .catch(err => console.warn(err))
     }
 
+    joinGroup(e, id, password, ispublic) {
+        e.preventDefault();
+        const join = {groupid: id, password, ispublic}
+        axios.post('groups/join', join)
+            .then(result => console.log(result))
+            .catch(err => console.warn(err))    
+    }
+
     render(){
         const allGroups = this.state.groups.map((g, i) => {
             return(
                 <JoinGroupCard 
                         key={`join-card-${i}`}
                         group = {g}
+                        joinGroup={(e, id, password, ispublic) => this.joinGroup(e, id, password, ispublic)}
                     />
             )}
         )

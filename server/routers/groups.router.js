@@ -22,6 +22,16 @@ GroupsRouter.get('/getAllGroups', (req, res) => {
         .catch(err => console.warn(err))
 })
 
+GroupsRouter.post('/join', (req, res) => {
+    const groupid = req.body.groupid;
+    const join = {groupid, userid: req.session.user.id}
+    if(req.body.ispublic) {
+        req.db.GroupsUser.insert(join)
+            .then(result => res.status(200).send(result))
+            .catch(err => console.warn(err))
+    }
+})
+
 GroupsRouter.delete('/delete/:id', (req, res) => {
     const {id} = req.params;
     req.db.Groups.destroy(+id)
