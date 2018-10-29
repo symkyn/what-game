@@ -19,7 +19,6 @@ class Nav extends Component {
     componentWillMount() {
         axios.get('/auth/me')
             .then(results => {
-                console.log(results.data);
                 this.props.updateCurrentUser(
                     results.data.bggid, 
                     results.data.username, 

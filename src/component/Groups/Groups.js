@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import CreateGroup from './CreateGroup';
 import JoinGroup from './JoinGroup';
+import GroupDetail from './GroupDetail';
 
 class Groups extends Component {
 
@@ -14,7 +15,7 @@ class Groups extends Component {
             selectedOption: 'create'
         }
 
-        this.handleChange = this.handleChange.bind(this);
+        this.deleteGroup = this.deleteGroup.bind(this);
 
     }
 
@@ -26,15 +27,29 @@ class Groups extends Component {
                 })
             })
             .catch(err => console.warn(err))
-            console.log(this.state.groups);
+    }
+
+    deleteGroup(e, id) {
+        e.preventDefault();
+
+        axios.delete(`groups/delete/${id}`)
+            .then(this.componentWillMount())
+            .catch(err => console.warn(err))
     }
 
     render(){
-        const myGroups = this.state.groups.map(g => g.name)
+        const myGroups = this.state.groups.map((g, i) => {
+            return(
+                <GroupDetail key={`group-${i}`} name={g.name} deleteGroup={(e) => this.deleteGroup(e, g.id)} />)
+            })
 
         return(
             <div className='groups'>
-               {myGroups}
+               {this.state.groups.length ? (
+               <div className='my-groups'>
+                    <h3>My Groups</h3>
+                    {myGroups}
+                </div>) : null}
                 <form>
                     <fieldset>
                         <legend>Select what you want to do</legend>
@@ -59,7 +74,7 @@ class Groups extends Component {
                     </fieldset>
                 </form>
                 {this.state.selectedOption==='create' ?
-                <CreateGroup />
+                <CreateGroup remount={this.componentWillMount()} />
                 :
                 <JoinGroup />
                 }

@@ -69,10 +69,9 @@ class CreateGroup extends Component {
 
     createGroup(e) {
         e.preventDefault();
-        console.log(this.state)
 
         axios.post('groups/newGroup', this.state)
-            .then(result => console.log(result))
+            .then(this.props.remount)
             .catch(err => console.log(err))
     }
 

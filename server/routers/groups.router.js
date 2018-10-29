@@ -16,4 +16,14 @@ GroupsRouter.get('/getGroups', (req, res) => {
         .catch(err => console.warn(err))
 })
 
+GroupsRouter.delete('/delete/:id', (req, res) => {
+    const {id} = req.params;
+    req.db.Groups.destroy(+id)
+        .then(product => res.status(200).send(product))
+        .catch(err => {
+            console.warn(err);
+            next({message: 'internal server error'})
+        })
+})
+
 module.exports = GroupsRouter;
