@@ -16,6 +16,12 @@ GroupsRouter.get('/getGroups', (req, res) => {
         .catch(err => console.warn(err))
 })
 
+GroupsRouter.get('/getAllGroups', (req, res) => {
+    req.db.getAllGroups()
+        .then(results => res.status(200).send(results))
+        .catch(err => console.warn(err))
+})
+
 GroupsRouter.delete('/delete/:id', (req, res) => {
     const {id} = req.params;
     req.db.Groups.destroy(+id)

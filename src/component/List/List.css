@@ -4,7 +4,7 @@
     
 }
 
-.game-list-item {
+.game-list-item, .join-group-grid {
     margin: 0;
     padding: 0;
     display: grid;
@@ -23,19 +23,19 @@ a:hover, a:active {
 }
 
 @media (min-width: 740px) {
-    .game-list-item {
+    .game-list-item, .join-group-grid {
       grid-template-columns: repeat(2, 330px);
     }
 }
 
 @media (min-width: 1075px) {
-    .game-list-item {
+    .game-list-item, .join-group-grid {
       grid-template-columns: repeat(3, 330px);
     }
 }
 
 @media (min-width: 1452px) {
-    .game-list-item {
+    .game-list-item, .join-group-grid {
       grid-template-columns: repeat(4, 330px);
     }
 }
