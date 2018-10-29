@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-class Form extends Component {
+class Groups extends Component {
     inputs = {
         title: {
             label: 'Title',
@@ -77,7 +77,7 @@ class Form extends Component {
 
     render(){
         return(
-            <div>Form
+            <div>Groups
                 <form name="new-game-form" className="new-game-form" onSubmit={(e) => this.handleSubmit(e)}>
                     <div className="form-row">
                         <label>{this.inputs.title.label}</label>
@@ -177,4 +177,4 @@ class Form extends Component {
     }
 }
 
-export default Form;
+export default Groups;

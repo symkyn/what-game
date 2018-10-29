@@ -48,6 +48,7 @@ class Nav extends Component {
             <div className='navigation-bar'> {this.state.firstName ? `Welcome ${this.state.firstName}` : null} 
                 <span className='nav=span'>
                     <Link to='/import'> <Button className='nav-button'>Import BGG Game List</Button> </Link>
+                    <Link to='/groups'> <Button className='nav-button'>Manage Groupst</Button> </Link>
                     <Link to='/list'> <Button className='nav-button'>Games!!!</Button> </Link>
                     <Link to='/'> <Button onClick={(e) => this.logout(e)} className='nav-button'>logout</Button> </Link>
                 </span>
