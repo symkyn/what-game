@@ -50,7 +50,6 @@ AuthRouter.get('/users', (req, res, next) => {
 });
 
 AuthRouter.get('/me', (req, res) => {
-    console.log(req.session.user);
     if (req.session.user) {
         res.status(200).send(req.session.user)
       } else {
