@@ -6,7 +6,7 @@ class JoinGroup extends Component {
         super()
 
         this.state={
-            groupName=''
+            groupName: ''
         }
     }
 

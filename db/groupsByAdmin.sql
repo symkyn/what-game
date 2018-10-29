@@ -1,0 +1,1 @@
+select * from "Groups" where adminUser = $1;
