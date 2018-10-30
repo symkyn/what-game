@@ -31,8 +31,7 @@ class GroupList extends Component {
     }
 
     componentWillMount() {
-        let groupid = {groupid: this.props.match.params.groupid}
-        axios.get('/games/groupGames?search=', groupid)
+        axios.get(`/games/groupGames/${this.props.match.params.groupid}?search=`)
           .then(results => {
             this.setState({
               games: results.data,
