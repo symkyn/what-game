@@ -48,7 +48,7 @@ class Groups extends Component {
             <div className='groups'>
                {this.state.groups.length ? (
                <div className='my-groups'>
-                    <h3>My Groups</h3>
+                    <h3>Groups I have Started</h3>
                     {myGroups}
                 </div>) : null}
                 <form>

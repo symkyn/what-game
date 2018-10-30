@@ -6,7 +6,12 @@ const GroupsRouter = express.Router();
 GroupsRouter.post('/newGroup', (req, res) => {
     let newGroup = {...req.body, adminuser: req.session.user.id};
     req.db.Groups.insert(newGroup)
-        .then(result => res.status(200).send(result))
+        .then(result => {
+            let join = {groupid: result[0].id, userid: req.session.user.id}
+            req.db.GroupsUser.insert(join)
+                .then(result => res.status(200).send(result))
+                .catch(err => res.status(401).send(err))
+            })
         .catch(err => console.warn(err))
 })
 
@@ -28,6 +33,18 @@ GroupsRouter.post('/join', (req, res) => {
     if(req.body.ispublic) {
         req.db.GroupsUser.insert(join)
             .then(result => res.status(200).send(result))
+            .catch(res.status(409).send({message: 'already in this group'}))
+    } else {
+        req.db.getPassword(groupid)
+            .then(result => {
+                if(result[0].grouppassword === req.body.password) {
+                    req.db.GroupsUser.insert(join)
+                        .then(result => res.status(200).send(result))
+                        .catch(res.status(409).send({message: 'already in this group'}))
+                }  else {
+                    res.status(401).send({message: 'Wrong Password'})
+                }
+            })
             .catch(err => console.warn(err))
     }
 })

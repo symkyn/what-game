@@ -17,7 +17,6 @@ class JoinGroupCard extends Component {
         this.setState({
             ispublic: this.props.group.ispublic
         })
-        console.log(this.props.group)
     }
 
     handleChange(e) {

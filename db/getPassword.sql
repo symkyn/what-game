@@ -1,0 +1,1 @@
+select grouppassword from "Groups" where id = $1;
