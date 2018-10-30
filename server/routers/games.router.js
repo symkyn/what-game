@@ -37,8 +37,9 @@ GamesRouter.get('/myGames', (req, res) => {
 
 GamesRouter.get('/groupGames', (req, res) => {
     let games = [];
+    let { groupid } = req.body;
     req.query.search ?
-    req.db.findgamebytitle(req.query.search)
+    req.db.findgroupgamebytitle(req.query.search)
     .then(result => {
         res.status(200).send(result);
     })
@@ -57,7 +58,7 @@ GamesRouter.get('/groupGames', (req, res) => {
         .catch(err => console.warn(err))
     })
     :
-    req.db.gameslist()
+    req.db.groupgamelist()
         .then(result => {
             res.status(200).send(result);
         })
