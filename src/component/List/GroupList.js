@@ -43,7 +43,7 @@ class GroupList extends Component {
     submitSearch(e) {
         e.preventDefault();
 
-        axios.get(`/games/groupGames?search=${this.state.searchTerm}`)
+        axios.get(`/games/groupGames/${this.props.match.params.groupid}?search=${this.state.searchTerm}`)
           .then(results => {
             this.setState({
               games: results.data,
@@ -56,7 +56,7 @@ class GroupList extends Component {
     submitFilter(e, num, time, users) {
         e.preventDefault();
 
-        axios.get(`/games/groupGames?num=${num}&time=${time}&users=${users}`)
+        axios.get(`/games/groupGames/${this.props.match.params.groupid}?num=${num}&time=${time}&users=${users}`)
           .then(results => {
             this.setState({
               games: results.data,

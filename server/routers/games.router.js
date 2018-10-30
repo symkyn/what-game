@@ -39,7 +39,7 @@ GamesRouter.get('/groupGames/:groupid', (req, res) => {
     let games = [];
     let { groupid } = req.params;
     req.query.search ?
-    req.db.findgroupgamebytitle(req.query.search)
+    req.db.findgroupgamebytitle(req.query.search, groupid)
     .then(result => {
         res.status(200).send(result);
     })
@@ -48,7 +48,7 @@ GamesRouter.get('/groupGames/:groupid', (req, res) => {
     req.query.users ?
     
     req.query.users.split(',').map(e => {
-        req.db.filterSearch(req.query.num, req.query.time, e)
+        req.db.filterSearch(req.query.num, req.query.time, e, groupid)
         .then(result => {
             games = games.concat(result)
             if (e == req.query.users.split(',')[req.query.users.split(',').length - 1]){
