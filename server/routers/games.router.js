@@ -19,6 +19,22 @@ const GamesRouter = express.Router();
 //                     // }))
 //                     .catch(err => console.warn(err))
 
+GamesRouter.get('/myGames', (req, res) => {
+    let games = [];
+    req.query.search ?
+    req.db.findgamebytitle(req.query.search, req.session.user.id)
+    .then(result => {
+        res.status(200).send(result);
+    })
+    .catch(err => console.warn(err))
+    :
+    req.db.gameslist(req.session.user.id)
+        .then(result => {
+            res.status(200).send(result);
+        })
+        .catch(err => console.warn(err))
+}) 
+
 GamesRouter.get('/groupGames', (req, res) => {
     let games = [];
     req.query.search ?

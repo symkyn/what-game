@@ -15,10 +15,10 @@ export default (
     <Switch>
         <Route exact path='/' component={Auth} />
         <Route path='/userInfo' component={UserInfo} />
-        <Route path='./groupInfo/:groupid' component={GroupList} />
         <Route path='/import' component={Import} />
         <Route path='/list' component={List} />
         <Route path='/game/:gameid' component={GameDetail} />
+        <Route path='/information-group/:groupid' component={GroupList} />
         <Route path='/groups' component={Groups} />
         <Route path='/login' component={Login} />
         <Route path='/register' component={Register} />

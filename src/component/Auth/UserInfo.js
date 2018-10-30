@@ -29,7 +29,7 @@ class UserInfo extends Component {
     render() {
         const myGroups = this.state.groups.map((g, i) => {
             return (
-                <Link className="no-link" to={`group/${g.id}`} key={`group-${i}`} >
+                <Link className="no-link" to={`information-group/${g.id}`} key={`group-${i}`} >
                     <UserGroupCard key={`user-group-${i}`} g={g}/>
                 </Link>
             )

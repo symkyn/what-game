@@ -32,7 +32,7 @@ class List extends Component {
     }
 
     componentWillMount() {
-        axios.get('/games/groupGames?search=')
+        axios.get('/games/myGames?search=')
           .then(results => {
             this.setState({
               games: results.data,
@@ -44,7 +44,7 @@ class List extends Component {
     submitSearch(e) {
         e.preventDefault();
 
-        axios.get(`/games/groupGames?search=${this.state.searchTerm}`)
+        axios.get(`/games/myGames?search=${this.state.searchTerm}`)
           .then(results => {
             this.setState({
               games: results.data,
@@ -57,7 +57,7 @@ class List extends Component {
     submitFilter(e, num, time, users) {
         e.preventDefault();
 
-        axios.get(`/games/groupGames?num=${num}&time=${time}&users=${users}`)
+        axios.get(`/games/myGames?num=${num}&time=${time}&users=${users}`)
           .then(results => {
             this.setState({
               games: results.data,
@@ -138,7 +138,6 @@ class List extends Component {
                         <Button className='search-button' type="submit">Search</Button>
                     </form>
                 </div>
-                    <FilterForm submitFilter={(e, num, time, users) => this.submitFilter(e, num, time, users)} />
                 <div className="sort-game-list-buttons">
                     <Button className='sort-button' onClick={(e) => {this.noPlays(e)}}>Shelf of Shame</Button>
                     <Button className='sort-button' onClick={(e) => {this.hasVotes(e)}}>Highest Average Vote</Button>
