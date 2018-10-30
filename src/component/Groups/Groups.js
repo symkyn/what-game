@@ -61,7 +61,7 @@ class Groups extends Component {
                                     value='create' 
                                     checked={this.state.selectedOption === 'create'} 
                                     onChange={this.handleChange} />
-                            <label for='create'>Create</label>    
+                            <label htmlFor='create'>Create</label>    
                         </div>
                         <div>
                             <input 
@@ -70,7 +70,7 @@ class Groups extends Component {
                                     value='join' 
                                     checked={this.state.selectedOption === 'join'}
                                     onChange={this.handleChange} />
-                            <label for='join'>Join</label>    
+                            <label htmlFor='join'>Join</label>    
                         </div>
                     </fieldset>
                 </form>
