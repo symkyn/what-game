@@ -8,4 +8,4 @@ const GroupDetail = ({name, deleteGroup}) => (
     </div>
 );
 
-export default GroupDetail
+export default GroupDetail;
