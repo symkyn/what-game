@@ -1,0 +1,1 @@
+select * from "Groups" inner join "GroupsUser" on ("Groups".id = "GroupsUser".groupid) where "GroupsUser".userid = $1;

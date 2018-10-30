@@ -19,7 +19,7 @@ const GamesRouter = express.Router();
 //                     // }))
 //                     .catch(err => console.warn(err))
 
-GamesRouter.get('/games', (req, res) => {
+GamesRouter.get('/groupGames', (req, res) => {
     let games = [];
     req.query.search ?
     req.db.findgamebytitle(req.query.search)

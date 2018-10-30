@@ -8,10 +8,12 @@ import GameDetail from './component/GameDetail/GameDetail';
 import Groups from './component/Groups/Groups';
 import Login from './component/Auth/Login/Login';
 import Register from './component/Auth/Register/Register';
+import UserInfo from './component/Auth/UserInfo';
 
 export default (
     <Switch>
         <Route exact path='/' component={Auth} />
+        <Route path='/userInfo' component={UserInfo} />
         <Route path='/import' component={Import} />
         <Route path='/list' component={List} />
         <Route path='/game/:gameid' component={GameDetail} />

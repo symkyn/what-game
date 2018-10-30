@@ -21,7 +21,7 @@ class Groups extends Component {
     }
 
     componentWillMount() {
-        axios.get('groups/getGroups')
+        axios.get('groups/getGroups/?isAdmin=true')
             .then(results => {
                 this.setState({
                     groups: results.data

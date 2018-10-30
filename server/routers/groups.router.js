@@ -16,7 +16,11 @@ GroupsRouter.post('/newGroup', (req, res) => {
 })
 
 GroupsRouter.get('/getGroups', (req, res) => {
+    req.query.isAdmin ?
     req.db.groupsByAdmin(req.session.user.id)
+        .then(results => res.status(200).send(results))
+        .catch(err => console.warn(err))
+    : req.db.userGroups(req.session.user.id)
         .then(results => res.status(200).send(results))
         .catch(err => console.warn(err))
 })

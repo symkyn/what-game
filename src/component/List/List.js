@@ -32,7 +32,7 @@ class List extends Component {
     }
 
     componentWillMount() {
-        axios.get('/games/games?search=')
+        axios.get('/games/groupGames?search=')
           .then(results => {
             this.setState({
               games: results.data,
@@ -44,7 +44,7 @@ class List extends Component {
     submitSearch(e) {
         e.preventDefault();
 
-        axios.get(`/games/games?search=${this.state.searchTerm}`)
+        axios.get(`/games/groupGames?search=${this.state.searchTerm}`)
           .then(results => {
             this.setState({
               games: results.data,
@@ -57,7 +57,7 @@ class List extends Component {
     submitFilter(e, num, time, users) {
         e.preventDefault();
 
-        axios.get(`/games/games?num=${num}&time=${time}&users=${users}`)
+        axios.get(`/games/groupGames?num=${num}&time=${time}&users=${users}`)
           .then(results => {
             this.setState({
               games: results.data,
