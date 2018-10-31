@@ -1,0 +1,1 @@
+select firstname, lastname, bggid, userid from "User" inner join "GroupsUser" on ("User".id = "GroupsUser".userid) where "GroupsUser".groupid = $1;

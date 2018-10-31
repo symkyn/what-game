@@ -25,6 +25,13 @@ GroupsRouter.get('/getGroups', (req, res) => {
         .catch(err => console.warn(err))
 })
 
+GroupsRouter.get('/groupMembers/:groupid', (req, res) => {
+    const {groupid} = req.params;
+    req.db.usersInGroup(groupid)
+        .then(results => res.status(200).send(results))
+        .catch(err => console.warn(err))
+})
+
 GroupsRouter.get('/getAllGroups', (req, res) => {
     req.db.getAllGroups()
         .then(results => res.status(200).send(results))

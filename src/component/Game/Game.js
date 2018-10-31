@@ -13,8 +13,12 @@ function Game(props) {
                 </span>
                 <span className="button-span">
                     Plays: {props.game.plays} 
-                    <Button className= 'game-button' onClick={props.addPlay}>Add Play</Button>
-                    <Button className= 'game-button' onClick={props.handleDelete}>Delete</Button>
+                    { !props.groupid ? 
+                    <div>
+                        <Button className= 'game-button' onClick={props.addPlay}>Add Play</Button>
+                        <Button className= 'game-button' onClick={props.handleDelete}>Delete</Button>
+                    </div>
+                    : null }
                 </span>
             </div>
         )

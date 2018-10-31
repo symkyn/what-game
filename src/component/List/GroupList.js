@@ -6,6 +6,7 @@ import  Game  from '../Game/Game';
 import Button from '../Button/Button';
 import './List.css';
 import FilterForm from '../FilterForm/FilterForm';
+import MemberCard from '../Groups/MemberCard';
 
 class GroupList extends Component {
     inputs = {
@@ -21,6 +22,7 @@ class GroupList extends Component {
 
         this.state = {
             games: [],
+            members: [],
             searchTerm: '',
             filter: '',
         }
@@ -38,6 +40,14 @@ class GroupList extends Component {
             })
           })
           .catch(err => console.warn(err))
+        axios.get(`/groups/groupMembers/${this.props.match.params.groupid}`)
+            .then(results => {
+                this.setState({
+                members: results.data,
+                })
+                console.log(results.data)
+            })
+            .catch(err => console.warn(err))
     }
 
     submitSearch(e) {
@@ -103,19 +113,28 @@ class GroupList extends Component {
     }
 
     render(){
+        const memberList = this.state.members.map((m, i) => {
+            return(
+                <MemberCard m={m} />
+            )
+        })
         const gamesList = this.state.games.map((game, i) => 
         {
             return(
-                <Link className="no-link" to={`../game/${game.id}`} key={`game-${i}`} >
+                <Link className="no-link" to={`../game/${game.id}/${this.props.match.params.groupid}`} key={`game-${i}`} >
                     <Game 
                             addPlay = {(e) => this.addPlay(e, game.plays, game.id)}
                             game={game}
+                            groupid={this.props.match.params.groupid}
                         />
                 </Link>        
                         )
         })
         return(
             <div className="game-list">
+                <div>
+                    {memberList}
+                </div>
                 <div className="search">
                     <form onSubmit={(e) => this.submitSearch(e)}>
                         <label>{this.inputs.search.label}</label>
