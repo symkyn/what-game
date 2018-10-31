@@ -115,7 +115,7 @@ class GroupList extends Component {
     render(){
         const memberList = this.state.members.map((m, i) => {
             return(
-                <MemberCard m={m} />
+                <MemberCard key={`member-${i}`}m={m} />
             )
         })
         const gamesList = this.state.games.map((game, i) => 

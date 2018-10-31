@@ -45,8 +45,8 @@ VoteRouter.post('/addVote/:gameID', (req, res, next) => {
         .catch(err => console.warn(err))
 })
 
-VoteRouter.get('/getVotes/:gameID', (req, res, next) => {
-    const { gameID } = req.params;
+VoteRouter.get('/getVotes/:gameID/:groupID', (req, res, next) => {
+    const { gameID, groupID } = req.params;
     req.db.votesbyuser(gameID)
         .then(result => res.status(200).send(result))
         .catch(err => console.warn(err))

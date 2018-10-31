@@ -55,7 +55,7 @@ class GameDetail extends Component {
             })
         })
         .catch(err => {
-            console.warn(err.response.data.message);
+            console.warn(err => console.warn(err));
         })
         axios
             .get(`/games/gameDetails/${this.props.match.params.gameid}`)

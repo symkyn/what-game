@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import  Game  from '../Game/Game';
 import Button from '../Button/Button';
 import './List.css';
-import FilterForm from '../FilterForm/FilterForm';
 
 class List extends Component {
     inputs = {

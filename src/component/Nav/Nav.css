@@ -1,8 +1,20 @@
 .navigation-bar {
     background-color: rgb(12, 16, 37);
-    height: 80px;
+    height: 240px;
     display: flex;
     justify-content: center;
     align-items: center;
     color: rgba(255, 255, 255, 0.959);
+}
+
+@media (min-width: 425px) {
+    .navigation-bar {
+        height: 160px;
+    }
+}
+
+@media (min-width: 950px) {
+    .navigation-bar {
+        height: 80px;
+    }
 }
