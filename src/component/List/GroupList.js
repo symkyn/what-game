@@ -132,7 +132,8 @@ class GroupList extends Component {
         })
         return(
             <div className="game-list">
-                <div>
+                <div className="member-list">
+                <h4>Group Members</h4>
                     {memberList}
                 </div>
                 <div className="search">
