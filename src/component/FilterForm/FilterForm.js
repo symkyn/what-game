@@ -32,7 +32,7 @@ class FilterForm extends Component {
     }
 
     componentDidMount() {
-        axios.get('/auth/users')
+        axios.get(`/groups/groupMembers/${this.props.groupID}`)
             .then(results => {
                 let userOptions = results.data.map(u => {return {value: u.bggid, label: u.bggid}});
                 this.setState({

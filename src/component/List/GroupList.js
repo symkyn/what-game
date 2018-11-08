@@ -147,7 +147,7 @@ class GroupList extends Component {
                         <Button className='search-button' type="submit">Search</Button>
                     </form>
                 </div>
-                    <FilterForm submitFilter={(e, num, time, users) => this.submitFilter(e, num, time, users)} />
+                    <FilterForm groupID={this.props.match.params.groupid} submitFilter={(e, num, time, users) => this.submitFilter(e, num, time, users)} />
                 <div className="sort-game-list-buttons">
                     <Button className='sort-button' onClick={(e) => {this.noPlays(e)}}>Shelf of Shame</Button>
                     <Button className='sort-button' onClick={(e) => {this.hasVotes(e)}}>Highest Average Vote</Button>
