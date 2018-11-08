@@ -28,11 +28,12 @@ class GameDetail extends Component {
     
 
     componentWillMount() {
-        axios.get(`/vote/getVotes/${this.props.match.params.gameid}`)
+        axios.get(`/vote/getVotes/${this.props.match.params.gameid}?groupID=${this.props.match.params.groupid}`)
         .then(response => {
             this.setState({
                 voteArray: response.data,
             });
+            console.log(response)
             const lables = this.state.voteArray.map(user => (user.firstname));
             const votes = this.state.voteArray.map(user => (user.vote));
             this.setState({
@@ -82,7 +83,7 @@ class GameDetail extends Component {
         let content;
        
         if (loading) {
-            content = <p className="loading">Loading</p>;
+            content = <p className="loading">Page Loading</p>;
         }
         else if (message) {
             content = <p className="error-message">{message}: Please Reload Page</p>;
