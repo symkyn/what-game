@@ -50,6 +50,8 @@ class Import extends Component {
       }
 
     componentWillMount() {
+        Modal.setAppElement('body');
+
         if(this.props.bggUserName)
         {this.setState({
             bggid: this.props.bggUserName
