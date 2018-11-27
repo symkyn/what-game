@@ -1,0 +1,1 @@
+select * from "LocationType" order by display asc;

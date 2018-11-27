@@ -10,5 +10,6 @@ create table "Locations" (
   maxplayers integer,
   tablecount integer,
   drinkallowed boolean,
-  foodallowed boolean
+  foodallowed boolean,
+  public boolean
 );
