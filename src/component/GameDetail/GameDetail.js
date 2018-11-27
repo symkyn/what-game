@@ -33,7 +33,7 @@ class GameDetail extends Component {
             this.setState({
                 voteArray: response.data,
             });
-            console.log(response)
+            console.log(response.data)
             const lables = this.state.voteArray.map(user => (user.firstname));
             const votes = this.state.voteArray.map(user => (user.vote));
             this.setState({

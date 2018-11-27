@@ -115,7 +115,7 @@ class List extends Component {
         const gamesList = this.state.games.map((game, i) => 
         {
             return(
-                <Link className="no-link" to={`game/${game.id}`} key={`game-${i}`} >
+                <Link className="no-link" to={`game/${game.id}/mygame`} key={`game-${i}`} >
                     <Game 
                             addPlay = {(e) => this.addPlay(e, game.plays, game.id)}
                             handleDelete={(e) => this.handleDelete(e, game.id)}

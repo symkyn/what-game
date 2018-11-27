@@ -47,7 +47,7 @@ VoteRouter.post('/addVote/:gameID', (req, res, next) => {
 
 VoteRouter.get('/getVotes/:gameID', (req, res, next) => {
     const { gameID} = req.params;
-    req.query.groupID ?
+    req.query.groupID > 0 ?
     req.db.votebyuserandgroup(gameID, req.query.groupID)
         .then(result => res.status(200).send(result))
         .catch(err => console.warn(err))
