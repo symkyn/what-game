@@ -25,11 +25,13 @@ class UserInfo extends Component {
 
         this.state={
             groups: [],
+            myLocations: [],
             addLocation: false,
         }
 
         this.addLocation = this.addLocation.bind(this);
         this.closeAddLocation = this.closeAddLocation.bind(this);
+        this.createNew = this.createNew.bind(this);
     }
 
     componentWillMount() {
@@ -38,6 +40,13 @@ class UserInfo extends Component {
             .then(results => {
                 this.setState({
                     groups: results.data
+                })
+            })
+            .catch(err => console.warn(err))
+        axios.get('locations/myPlaces')
+            .then(results => {
+                this.setState({
+                    myLocations: results.data
                 })
             })
             .catch(err => console.warn(err))
@@ -55,6 +64,18 @@ class UserInfo extends Component {
         this.setState({
             addLocation: false,
         })
+    }
+
+    createNew(e, location) {
+        e.preventDefault();
+
+        let newLocation = Object.assign({}, location);
+        delete newLocation.types;
+        axios.post('/locations/add', newLocation)
+            .then(result => this.setState({
+                addLocation: false
+            }))
+            .catch(err => console.log(err))
     }
 
     render() {
@@ -78,7 +99,7 @@ class UserInfo extends Component {
                     onRequestClose={this.closeAddLocation}
                     contentLabel="Add Location Modal"
                     style={customStyles}>
-                    <AddLocation />
+                    <AddLocation createNew={(e, location) => this.createNew(e, location)} />
                     <Button onClick={this.closeAddLocation}>close</Button>
                 </Modal>
             </div>

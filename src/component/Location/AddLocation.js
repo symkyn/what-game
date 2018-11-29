@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import Button from '../Button/Button';
+import './AddLocation.css';
+
 class AddLocation extends Component {
     inputs = {
+        title: {
+            label: 'Title',
+            property: 'title',
+            type: 'text'
+        },
         address1: {
             label: 'Address (Line 1)',
             property: 'address1',
@@ -55,12 +63,13 @@ class AddLocation extends Component {
         },
     }
     
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         
         this.state = {
             types: [],
             type: "",
+            title: '',
             address1: '',
             address2: '',
             city: '',
@@ -69,7 +78,7 @@ class AddLocation extends Component {
             maxplayers: '',
             tablecount: '',
             drinkallowed: false,
-            foodallowed: false,
+            foodallowed: true,
             public: false,
         }
     }
@@ -85,27 +94,35 @@ class AddLocation extends Component {
     }
 
     handleChange(e, name) {
-        e.preventDefault();
-        const value = e.target.value;
-
-        this.setState({[name]: value});
         
+        const value = e.target.value;
+        if(value !== 'checkbox') {
+            this.setState({[name]: value});
+        } else {
+            this.setState({[name]: !this.state[name]})
+        }
     }
 
-
     render(){
-        console.log(this.state.type);
+        console.log(this.state.foodallowed);
         const options = this.state.types.map((type, i) => {
-            return (<option key={`option-${i}`} value={type.id}>{type.display}</option>)
+            return (<option key={`option-${i}`} value={type.id
+            }>{type.display}</option>)
         })
         return(
-            <div className="add=location-form">
-                <form>
+            <div className="add-location-form">
+                <form onSubmit={(e => this.props.createNew(e, this.state))}>
                     <label>Type of Venue </label>
                     <select onChange={(e) => this.handleChange(e, 'type')} value={this.state.type}>
                         <option value="" disabled>Select your option</option>
                         {options}
                     </select>
+                    <input 
+                                onChange={(e) => this.handleChange(e, this.inputs.title.property)}
+                                value={this.state.title}
+                                type={this.inputs.title.type}
+                                placeholder={this.inputs.title.label}
+                        />
                     <div className='address'>
                         <input 
                                 onChange={(e) => this.handleChange(e, this.inputs.address1.property)}
@@ -154,22 +171,26 @@ class AddLocation extends Component {
                         <label>{this.inputs.drinkallowed.label}</label>
                         <input 
                                 onChange={(e) => this.handleChange(e, this.inputs.drinkallowed.property)}
-                                value={this.state.drinkallowed}
+                                value='checkbox'
                                 type={this.inputs.drinkallowed.type}
+                                // checked={this.state.drinkallowed}
                         />
                         <label>{this.inputs.foodallowed.label}</label>
                         <input 
                                 onChange={(e) => this.handleChange(e, this.inputs.foodallowed.property)}
-                                value={this.state.foodallowed}
+                                value='checkbox'
                                 type={this.inputs.foodallowed.type}
+                                checked={this.state.foodallowed}
                         />
                         <label>{this.inputs.public.label}</label>
                         <input 
                                 onChange={(e) => this.handleChange(e, this.inputs.public.property)}
-                                value={this.state.public}
+                                value='checkbox'
                                 type={this.inputs.public.type}
+                                // checked={this.state.public}
                         />
                     </div>
+                    <Button type='submit'>Create New</Button>
                 </form>
             </div>
         )

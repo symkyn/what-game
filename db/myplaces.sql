@@ -1,0 +1,1 @@
+select * from "Locations" as L inner join "LocationType" as LT on (L.type = LT.id) where controller = $1;
