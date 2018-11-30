@@ -6,6 +6,8 @@ import Modal from 'react-modal';
 import Button from './../Button/Button';
 import UserGroupCard from './UserGroupCard';
 import AddLocation from '../Location/AddLocation';
+import LocationCard from '../Location/LocationCard';
+import './UserInfo.css';
 
 const customStyles = {
     content : {
@@ -86,14 +88,29 @@ class UserInfo extends Component {
                 </Link>
             )
         })
+        const locations = this.state.myLocations.map((l, i) => {
+            return (
+                <LocationCard key={`location-${i}`} l={l} />
+            )
+        })
         return(
             <div>
-                <h3>My Groups</h3>
-                {myGroups}
-                { !this.state.addLocation ?
-                    <Button onClick={(e) => this.addLocation(e)}>Add Location</Button>
-                    : null
-                }
+                
+                <div className='myinfo'>
+                    <div className='my-groups-div'>
+                        <h3>My Groups</h3>
+                        {myGroups}
+                    </div>
+                    <div className='my-locations-div'>
+                        <h3>My Locations</h3>
+                        {locations}
+                        { !this.state.addLocation ?
+                            <Button onClick={(e) => this.addLocation(e)}>Add Location</Button>
+                            : null
+                        }
+                    </div>
+                </div>
+                
                 <Modal
                     isOpen={this.state.addLocation}
                     onRequestClose={this.closeAddLocation}
