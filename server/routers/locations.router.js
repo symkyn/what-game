@@ -29,4 +29,28 @@ LocationsRouter.post('/add', (req, res, next) => {
         })
 })
 
+LocationsRouter.delete('/delete/:id', (req, res, next) => {
+    const { id } = req.params;
+    req.db.Locations.destroy(+id)
+        .then(result => res.status(200).send(result))
+        .catch(err => {
+            console.warn(err);
+            next({message: 'internal server error'})
+        })
+})
+
+LocationsRouter.patch('/update/:id', (req, res, next) => {
+    const { id } = req.params;
+    const updateLocation = req.body;
+    updateLocation.state = updateLocation.usstate;
+    delete updateLocation.types;
+    req.db.Locations
+        .update(+id, { ...updateLocation })
+        .then(product => res.status(202).send(product))
+        .catch(err => {
+            console.warn('error with the db', err);
+            next({message: 'internal server error'})
+        })
+})
+
 module.exports = LocationsRouter;

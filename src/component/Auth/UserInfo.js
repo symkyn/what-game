@@ -38,6 +38,7 @@ class UserInfo extends Component {
         this.createNew = this.createNew.bind(this);
         this.editLocation = this.editLocation.bind(this);
         this.closeEditLocation = this.closeEditLocation.bind(this);
+        this.deleteLocation = this.deleteLocation.bind(this);
     }
 
     componentWillMount() {
@@ -86,6 +87,34 @@ class UserInfo extends Component {
             editLocation: false,
             locationIndex: '',
         })
+    }
+
+    deleteLocation(i, e) {
+        e.preventDefault();
+
+        axios.delete(`locations/delete/${i}`)
+            .then(() => {
+                this.setState({
+                    editLocation: false,
+                    locationIndex: '',
+                })
+                this.componentWillMount();
+            })
+            .catch(err => console.warn(err))
+    }
+
+    updateLocation(i, location, e) {
+        e.preventDefault();
+
+        axios.patch(`locations/update/${i}`, location)
+            .then(() => {
+                this.setState({
+                    editLocation: false,
+                    locationIndex: '',
+                })
+                this.componentWillMount();
+            })
+            .catch(err => console.warn(err))
     }
 
     createNew(e, location) {
@@ -147,7 +176,11 @@ class UserInfo extends Component {
                     onRequestClose={this.closeEditLocation}
                     contentLabel="Edit Location Modal"
                     style={customStyles}>
-                    <AddLocation location={this.state.myLocations[this.state.locationIndex]}/>
+                    <AddLocation 
+                            location={this.state.myLocations[this.state.locationIndex]} 
+                            deleteLocation={(i, e) => this.deleteLocation(i, e)} 
+                            updateLocation={(i, location, e) => this.updateLocation(i, location, e)}
+                        />
                     <Button onClick={this.closeEditLocation}>close</Button>
                 </Modal>
             </div>

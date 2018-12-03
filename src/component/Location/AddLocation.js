@@ -207,8 +207,8 @@ class AddLocation extends Component {
                     </div>
                     { this.props.location ?
                         <div>
-                            <Button> Update </Button>
-                            <Button> Delete </Button>
+                            <Button onClick={e => this.props.updateLocation(this.props.location.id, this.state, e)}> Update </Button>
+                            <Button onClick={e => this.props.deleteLocation(this.props.location.id, e)}> Delete </Button>
                         </div>
                     :
                         <Button type='submit'>Create New</Button>
