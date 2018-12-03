@@ -33,7 +33,6 @@ class GameDetail extends Component {
             this.setState({
                 voteArray: response.data,
             });
-            console.log(response.data)
             const lables = this.state.voteArray.map(user => (user.firstname));
             const votes = this.state.voteArray.map(user => (user.vote));
             this.setState({
@@ -101,6 +100,14 @@ class GameDetail extends Component {
                             <h5>Average vote</h5>
                             {game.averagevote}
                             <br />
+                            {game.etitle ? 
+                                <div>
+                                    <h5>Expansion</h5>
+                                    {game.etitle}
+                                    <br />
+                                </div>
+                                : <p>No Expansions</p>
+                            }
                         </div>
                     ) : (
                         <div className="average-vote">
