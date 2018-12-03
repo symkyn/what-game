@@ -118,17 +118,17 @@ class GameDetail extends Component {
                             <br />
                             {exps.length > 1 ? 
                                 <div>
-                                    <h5>Expansion</h5>
+                                    <h5>Expansions Owned</h5>
                                     {exps}
                                 </div>
                             : game.etitle ? 
                                 <div>
-                                    <h5>Expansion</h5>
+                                    <h5>Expansion Owned</h5>
                                     {game.etitle}
                                     <br />
                                 </div>
                             :    
-                                <p>No Expansions</p>
+                                <p>No Expansions Owned</p>
                             }
                         </div>
                     ) : (
