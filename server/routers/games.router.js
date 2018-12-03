@@ -111,6 +111,26 @@ GamesRouter.get('/importGame/:bggGameid/:owner/:plays', (req, res) => {
                                 name = result['boardgames']['boardgame'][0]['name'][i]['_'];
                             }
                         }
+                        if(result['boardgames']['boardgame'][0]['boardgameexpansion'][0]['$']['inbound']){
+                            const newExpansion = { 
+                                bggid: Number(gameID),
+                                basegameid: Number(result['boardgames']['boardgame'][0]['boardgameexpansion'][0]['$']['objectid']),
+                                owner: bgguser,
+                                title: name,
+                                minplayercount: Number(result['boardgames']['boardgame'][0]['minplayers'][0]),
+                                maxplayercount: Number(result['boardgames']['boardgame'][0]['maxplayers'][0]),
+                                minplaytime: Number(result['boardgames']['boardgame'][0]['minplaytime'][0]),
+                                maxplaytime: Number(result['boardgames']['boardgame'][0]['maxplaytime'][0]),
+                                thumbnail: result['boardgames']['boardgame'][0]['thumbnail'][0],
+                                description: result['boardgames']['boardgame'][0]['description'][0],
+                                genre: '',
+                                plays: Number(plays)  
+                            }
+                            req.db.Expansion.insert(newExpansion)
+                                .then(result => result)
+                                .catch(err => console.warn(err))
+                            res.status(200).send(newExpansion);
+                        } else {
                         const newGame = { 
                             bggid: Number(gameID),
                             owner: bgguser,
@@ -129,7 +149,7 @@ GamesRouter.get('/importGame/:bggGameid/:owner/:plays', (req, res) => {
                             .then(result => result)
                             .catch(err => console.warn(err))
                         res.status(200).send(newGame);
-                    }))
+                    }}))
                     .catch(err => console.warn(err))
             }        
         })
