@@ -62,8 +62,15 @@ GroupsRouter.post('/join', (req, res) => {
 
 GroupsRouter.delete('/delete/:id', (req, res) => {
     const {id} = req.params;
-    req.db.Groups.destroy(+id)
-        .then(product => res.status(200).send(product))
+    req.db.GroupsUser.destroy(+id)
+        .then(() => {
+            req.db.Groups.destroy(+id)
+                .then(product => res.status(200).send(product))
+                .catch(err => {
+                    console.warn(err);
+                    next({message: 'internal server error'})
+                })
+        })
         .catch(err => {
             console.warn(err);
             next({message: 'internal server error'})
