@@ -91,6 +91,22 @@ class AddLocation extends Component {
                 })
             )
             .catch(err => console.warn(err))
+        if(this.props.location) {
+            this.setState({
+                type: this.props.location.type,
+                title: this.props.location.title,
+                address1: this.props.location.address1,
+                address2: this.props.location.address2,
+                city: this.props.location.city,
+                usstate: this.props.location.state,
+                zipcode: this.props.location.zipcode,
+                maxplayers: this.props.location.maxplayers,
+                tablecount: this.props.location.tablecount,
+                drinkallowed: this.props.location.drinkallowed,
+                foodallowed: this.props.location.foodallowed,
+                public: this.props.location.public,
+            })
+        }
     }
 
     handleChange(e, name) {
@@ -104,7 +120,6 @@ class AddLocation extends Component {
     }
 
     render(){
-        console.log(this.state.foodallowed);
         const options = this.state.types.map((type, i) => {
             return (<option key={`option-${i}`} value={type.id
             }>{type.display}</option>)
@@ -190,7 +205,14 @@ class AddLocation extends Component {
                                 // checked={this.state.public}
                         />
                     </div>
-                    <Button type='submit'>Create New</Button>
+                    { this.props.location ?
+                        <div>
+                            <Button> Update </Button>
+                            <Button> Delete </Button>
+                        </div>
+                    :
+                        <Button type='submit'>Create New</Button>
+                    }
                 </form>
             </div>
         )

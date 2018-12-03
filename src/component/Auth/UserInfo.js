@@ -29,11 +29,15 @@ class UserInfo extends Component {
             groups: [],
             myLocations: [],
             addLocation: false,
+            editLocation: false,
+            locationIndex: '',
         }
 
         this.addLocation = this.addLocation.bind(this);
         this.closeAddLocation = this.closeAddLocation.bind(this);
         this.createNew = this.createNew.bind(this);
+        this.editLocation = this.editLocation.bind(this);
+        this.closeEditLocation = this.closeEditLocation.bind(this);
     }
 
     componentWillMount() {
@@ -68,6 +72,22 @@ class UserInfo extends Component {
         })
     }
 
+    editLocation(i, e) {
+        e.preventDefault();
+
+        this.setState({
+            editLocation: true,
+            locationIndex: i,
+        })
+    }
+
+    closeEditLocation() {
+        this.setState({
+            editLocation: false,
+            locationIndex: '',
+        })
+    }
+
     createNew(e, location) {
         e.preventDefault();
 
@@ -90,7 +110,9 @@ class UserInfo extends Component {
         })
         const locations = this.state.myLocations.map((l, i) => {
             return (
-                <LocationCard key={`location-${i}`} l={l} />
+                <div className='location-card' key={`location-${i}`} onClick={(e) => this.editLocation(i, e)}>
+                    <LocationCard l={l} />
+                </div>
             )
         })
         return(
@@ -118,6 +140,15 @@ class UserInfo extends Component {
                     style={customStyles}>
                     <AddLocation createNew={(e, location) => this.createNew(e, location)} />
                     <Button onClick={this.closeAddLocation}>close</Button>
+                </Modal>
+
+                <Modal
+                    isOpen={this.state.editLocation}
+                    onRequestClose={this.closeEditLocation}
+                    contentLabel="Edit Location Modal"
+                    style={customStyles}>
+                    <AddLocation location={this.state.myLocations[this.state.locationIndex]}/>
+                    <Button onClick={this.closeEditLocation}>close</Button>
                 </Modal>
             </div>
         )
