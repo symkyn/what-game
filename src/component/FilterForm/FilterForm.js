@@ -88,7 +88,10 @@ class FilterForm extends Component {
                             onChange={(e) => this.changeUsers(e)}
                         />
                     </div>    
-                    <Button className='search-button'>Filter</Button>
+                    { (this.state.numPlayers > 0 && this.state.users.length > 0) ?
+                        <Button className='search-button'>Filter</Button>
+                        : null
+                    }
                     </form>
                 </div>
         )
