@@ -19,6 +19,7 @@ class GameDetail extends Component {
             voteArray: [],
             chartData: {},
             showGraph: false,
+            expansions: [],
         };
 
         this.submitVote = this.submitVote.bind(this);
@@ -60,9 +61,19 @@ class GameDetail extends Component {
         axios
             .get(`/games/gameDetails/${this.props.match.params.gameid}`)
             .then(response => {
-                this.setState({
-                    game: response.data,
-                });
+
+                if(response.data.length === 1) {
+                    this.setState({
+                        game: response.data[0],
+                        expansions: [response.data[0].etitle],
+                    });
+                } else {
+                    const expansions = response.data.map(e =>  e.etitle);
+                    this.setState({
+                        game: response.data[0],
+                        expansions: expansions,
+                    })
+                }
             })
             .catch(err => {
                 console.warn(err.response.data.message);
@@ -80,7 +91,12 @@ class GameDetail extends Component {
     render() {
         const { game, loading, message } = this.state;
         let content;
-       
+        var exps = null;
+        if(this.state.expansions.length >= 1) { 
+            exps = this.state.expansions.map((exp, i) => {
+                return(<div key={`exp-${i}`}>{exp}</div>)
+            })
+        }
         if (loading) {
             content = <p className="loading">Page Loading</p>;
         }
@@ -100,13 +116,19 @@ class GameDetail extends Component {
                             <h5>Average vote</h5>
                             {game.averagevote}
                             <br />
-                            {game.etitle ? 
+                            {exps.length > 1 ? 
+                                <div>
+                                    <h5>Expansion</h5>
+                                    {exps}
+                                </div>
+                            : game.etitle ? 
                                 <div>
                                     <h5>Expansion</h5>
                                     {game.etitle}
                                     <br />
                                 </div>
-                                : <p>No Expansions</p>
+                            :    
+                                <p>No Expansions</p>
                             }
                         </div>
                     ) : (
