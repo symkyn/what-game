@@ -88,19 +88,10 @@ GamesRouter.get('/import/:bgguser', (req, res) => {
 
 GamesRouter.get('/importGame/:bggGameid/:owner/:plays', (req, res) => {
     const gameID = req.params.bggGameid;
-    const owner = req.params.owner;
-    const plays = req.params.plays;
-    console.log(owner);
-    let bgguser = 5;
+    var bgguser = req.session.user.id;
+    var plays = req.params.plays;
     let name = '';
-    req.db.userid(owner)
-        .then(result => {
-            if (result[0].id) {
-                bgguser = result[0].id;
-            }
-        })
-        .catch(err => console.warn(err))
-    req.db.gameexist(gameID)
+    req.db.gameexist(gameID, bgguser)
         .then(result => {
             if (result.length == 0) {
                 axios.get(`https://www.boardgamegeek.com/xmlapi/boardgame/${gameID}`)
@@ -111,7 +102,8 @@ GamesRouter.get('/importGame/:bggGameid/:owner/:plays', (req, res) => {
                                 name = result['boardgames']['boardgame'][0]['name'][i]['_'];
                             }
                         }
-                        if(result['boardgames']['boardgame'][0]['boardgameexpansion'][0]['$']['inbound']){
+                        if(result['boardgames']['boardgame'][0]['boardgameexpansion']){
+                            if(result['boardgames']['boardgame'][0]['boardgameexpansion'][0]['$']['inbound']){
                             const newExpansion = { 
                                 bggid: Number(gameID),
                                 basegameid: Number(result['boardgames']['boardgame'][0]['boardgameexpansion'][0]['$']['objectid']),
@@ -130,7 +122,7 @@ GamesRouter.get('/importGame/:bggGameid/:owner/:plays', (req, res) => {
                                 .then(result => result)
                                 .catch(err => console.warn(err))
                             res.status(200).send(newExpansion);
-                        } else {
+                        }} else {
                         const newGame = { 
                             bggid: Number(gameID),
                             owner: bgguser,

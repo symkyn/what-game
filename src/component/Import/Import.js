@@ -61,7 +61,6 @@ class Import extends Component {
     gameImport(e, id, plays){
         e.preventDefault();
 
-        console.log(id)
         axios.get(`/games/importGame/${id}/${this.state.bggid}/${plays}`)
             .then(result => this.openModal(result))
             .catch(err => console.warn(err))
@@ -126,7 +125,6 @@ class Import extends Component {
         e.preventDefault();
 
         const bggid = this.state.bggid
-        console.log(bggid)
         axios.get(`/games/import/${bggid}`)
             .then(result => {
                 this.setState({
