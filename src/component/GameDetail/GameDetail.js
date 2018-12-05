@@ -16,10 +16,11 @@ class GameDetail extends Component {
             loading: true,
             message: '',
             newVote: 0,
+            databaseVote: 0,
             voteArray: [],
             chartData: {},
-            showGraph: false,
             expansions: [],
+            voteOptions: [],
         };
 
         this.submitVote = this.submitVote.bind(this);
@@ -29,35 +30,34 @@ class GameDetail extends Component {
     
 
     componentWillMount() {
-        axios.get(`/vote/getVotes/${this.props.match.params.gameid}?groupID=${this.props.match.params.groupid}`)
-        .then(response => {
-            this.setState({
-                voteArray: response.data,
-            });
-            const lables = this.state.voteArray.map(user => (user.firstname));
-            const votes = this.state.voteArray.map(user => (user.vote));
-            this.setState({
-                chartData: {
-                    labels: lables,
-                    datasets: [
-                        {
-                            label: 'Vote',
-                            data: votes,
-                            backgroundColor: 'rgba(255, 99, 125, 0.2)',
-                            borderColor: 'rgba(255, 0, 125, 1)',
-                            color: 'black',
-                            borderWidth: 1,
-                            hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-                            hoverBorderColor: 'rgba(255,99,132,1)',
-
-                        }
-                    ]
-                }
+        axios.get('/vote/options')
+            .then( response => {
+                this.setState({
+                    voteOptions: response.data
+                })
             })
-        })
-        .catch(err => {
-            console.warn(err => console.warn(err));
-        })
+            .catch(err => console.warn(err))
+        if(this.props.match.params.groupid !== "mygame") {     
+            axios.get(`/vote/getVotes/${this.props.match.params.gameid}?groupID=${this.props.match.params.groupid}`)
+            .then(response => {
+                this.setState({
+                    voteArray: response.data,
+                });
+            })
+            .catch(err => {
+                console.warn(err => console.warn(err));
+            })
+        } 
+        axios.get(`/vote/getVotes/${this.props.match.params.gameid}`)
+            .then(response => {
+                this.setState({
+                    newVote: response.data[0].vote,
+                    databaseVote: response.data[0],
+                })
+            })
+            .catch(err => {
+                console.warn(err => console.warn(err));
+            })
         axios
             .get(`/games/gameDetails/${this.props.match.params.gameid}`)
             .then(response => {
@@ -89,6 +89,12 @@ class GameDetail extends Component {
     }
 
     render() {
+        const voteOptions = this.state.voteOptions.map((o, i) => {
+            return <option key={`option-${i}`} value={o.voteoptionid}>{o.display}</option>
+        })
+        const groupVotes = this.state.voteArray.map((v, i) => {
+            return(<li key={`vote-${i}`} className='vote-list'>{v.firstname}: {v.display}</li>)
+        })
         const { game, loading, message } = this.state;
         let content;
         var exps = null;
@@ -111,12 +117,17 @@ class GameDetail extends Component {
                     <br />
                     <img src={game.thumbnail} alt='not available' />
                     <br />
-                    {game.averagevote !== 'NaN' ? (
+                    {this.props.match.params.groupid !== 'mygame' ? (
                         <div className="average-vote">
-                            <h5>Average vote</h5>
-                            {game.averagevote}
-                            <br />
-                            {exps.length > 1 ? 
+                            {groupVotes}
+                        </div>
+                    ) : (
+                        <div>
+                            My Current Vote: {this.state.databaseVote.display}
+                        </div>
+                    )
+                    }
+                    {exps.length > 1 ? 
                                 <div>
                                     <h5>Expansions Owned</h5>
                                     {exps}
@@ -129,13 +140,6 @@ class GameDetail extends Component {
                                 </div>
                             :    
                                 <p>No Expansions Owned</p>
-                            }
-                        </div>
-                    ) : (
-                        <div className="average-vote">
-                            <h5>No Votes Yet</h5>
-                        </div>
-                    )
                     }
                     <div 
                             className="description" 
@@ -148,49 +152,19 @@ class GameDetail extends Component {
         return (
             <div className="game-details-component">
                 {content}
-                {this.state.showGraph
-                    ? (<div className="graph">
-                    <HorizontalBar 
-                          data={this.state.chartData}
-                          options={{
-                              maintainAspectRatio: false,
-                              legend: {
-                                  labels: {
-                                    fontColor: 'black'
-                                  }
-                              },
-                              scales: {
-                                  xAxes: [{
-                                      display: true,
-                                      ticks: {
-                                          fontColor: 'black',
-                                          beginAtZero: true,
-                                          steps: 10,
-                                          min: 0,
-                                          max: 10
-                                      }
-                                  }],
-                                  yAxes: [{
-                                      ticks: {
-                                          fontColor: 'black'
-                                      }
-                                  }]
-                              }
-                          }}   
-                    />
-                    <Button onClick={() => this.hideDetail()}>Hide Detail</Button>
-                    </div>)
-                    : (<Button onClick={() => this.showDetail()}>Show Detail</Button>)
+                {this.props.match.params.groupid !== "mygame" ?
+                    <div>
+                    
+                    </div> : null 
                 }
                 <form onSubmit={(e) => this.submitVote(e)}>
                     <label>My Vote </label>
-                    <input 
+                    <select 
                             onChange={(e) => this.handleChange(e)}
                             value={this.state.newVote}
-                            type="number"
-                            min='1'
-                            max='10'
-                        />
+                        >
+                        {voteOptions}
+                    </select>
                     <Button type="submit"> VOTE! </Button>
                 </form>
             </div>
@@ -212,18 +186,6 @@ class GameDetail extends Component {
                 this.componentWillMount();
             })
             .catch(err => console.warn(err))
-    }
-
-    showDetail() {
-        this.setState({
-            showGraph: true
-        })
-    }
-
-    hideDetail() {
-        this.setState({
-            showGraph: false
-        })
     }
 
 }
