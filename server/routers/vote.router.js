@@ -51,4 +51,13 @@ VoteRouter.get('/getVotes/:gameID', (req, res, next) => {
         .catch(err => console.warn(err))    
 })
 
+VoteRouter.get('/options', (req, res, next) => {
+    req.db.voteoptions()
+        .then(result => res.status(200).send(result))
+        .catch(err => {
+            console.warn('error with the db', err);
+            next({message: 'internal server error'})
+        })
+})
+
 module.exports = VoteRouter;
