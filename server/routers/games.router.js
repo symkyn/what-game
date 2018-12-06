@@ -122,7 +122,27 @@ GamesRouter.get('/importGame/:bggGameid/:owner/:plays', (req, res) => {
                                 .then(result => result)
                                 .catch(err => console.warn(err))
                             res.status(200).send(newExpansion);
-                        }} else {
+                            } else {
+                                const newGame = { 
+                                    bggid: Number(gameID),
+                                    owner: bgguser,
+                                    title: name,
+                                    minplayercount: Number(result['boardgames']['boardgame'][0]['minplayers'][0]),
+                                    maxplayercount: Number(result['boardgames']['boardgame'][0]['maxplayers'][0]),
+                                    minplaytime: Number(result['boardgames']['boardgame'][0]['minplaytime'][0]),
+                                    maxplaytime: Number(result['boardgames']['boardgame'][0]['maxplaytime'][0]),
+                                    thumbnail: result['boardgames']['boardgame'][0]['thumbnail'][0],
+                                    description: result['boardgames']['boardgame'][0]['description'][0],
+                                    genre: '',
+                                    plays: Number(plays),
+                                    averagevote: NaN    
+                                }
+                                req.db.Games.insert(newGame)
+                                    .then(result => result)
+                                    .catch(err => console.warn(err))
+                                res.status(200).send(newGame);
+                            }
+                        } else {
                         const newGame = { 
                             bggid: Number(gameID),
                             owner: bgguser,
