@@ -62,7 +62,13 @@ class Import extends Component {
         e.preventDefault();
 
         axios.get(`/games/importGame/${id}/${this.state.bggid}/${plays}`)
-            .then(result => this.openModal(result))
+            .then(result => {
+                if(result.status === 200) {
+                    this.openModal(result)
+                } else if( result.status === 409) {
+                    
+                }
+            })
             .catch(err => console.warn(err))
     }
 

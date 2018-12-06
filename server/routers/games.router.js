@@ -163,7 +163,9 @@ GamesRouter.get('/importGame/:bggGameid/:owner/:plays', (req, res) => {
                         res.status(200).send(newGame);
                     }}))
                     .catch(err => console.warn(err))
-            }        
+            } else {
+                res.status(409).send({message: 'You have already imported this game!'})
+            }       
         })
         .catch(err => console.warn(err))
 })
