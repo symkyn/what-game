@@ -4,5 +4,6 @@ create table "User" (
 	password varchar(20),
 	bggID text,
 	firstName text,
-	lastName text
+	lastName text,
+	email varchar(50)
 );

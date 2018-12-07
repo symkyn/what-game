@@ -15,7 +15,8 @@ class Register extends Component {
             password: '',
             firstname: '',
             lastname: '',
-            bggid: ''
+            bggid: '',
+            email: '',
         }
     }
 
@@ -45,6 +46,17 @@ class Register extends Component {
                                     id="password"
                                     onChange={e => this.handleChange('password', e.target.value)}
                                     value={this.state.password} />
+                            </div>
+                        </div>
+                        <div className="input-row">
+                            <div className="input">
+                                <label htmlFor="email">Email</label>
+                                <input
+                                    type="text"
+                                    name="email"
+                                    id="email"
+                                    onChange={e => this.handleChange('email', e.target.value)}
+                                    value={this.state.email} />
                             </div>
                         </div>
                         <div className="input-row">
